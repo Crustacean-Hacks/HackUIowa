@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background-color: rgba(0, 0, 0, 0.2); /* Light black background with some transparency */
+            background-color: rgba(0, 0, 0, 0.15);
             padding: 20px;
             text-align: center;
         }
@@ -15,32 +15,39 @@
             appearance: none;
             border: none;
             outline: none;
-            border-bottom: .2em solid #E91E63;
-            background: rgba(233, 30, 99, .2);
+            border-bottom: .2em solid #007bff; /* Blue border */
+            background: rgba(0, 123, 255, .2); /* Light blue background */
             border-radius: .2em .2em 0 0;
             padding: .4em;
-            color: #E91E63;
-            margin-bottom: 10px;
+            color: #000; /* Black text color */
+            margin-right: 20px; /* Adds space between the input and the button */
         }
 
         #save {
-            background-color: #007bff; /* Blue button color */
+            background-color: #007bff; /* Solid blue background */
             color: #fff; /* White text color */
             padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: .2em .2em 0 0;
             cursor: pointer;
             font-size: 16px;
         }
 
         #save:hover {
-            background-color: #0056b3; /* Darker blue color on hover */
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .input-button-container {
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
-    <input type="text" id="api_key" placeholder="API Key">
-    <button id="save" class="btn btn-primary">Save</button>
+    <div class="input-button-container">
+        <input type="text" id="api_key" placeholder="Enter your API key">
+        <button id="save" class="btn btn-primary">Save</button>
+    </div>
     <script src="popup.js"></script>
 </body>
 </html>
