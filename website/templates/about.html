@@ -1,86 +1,103 @@
+<style>
+  .subtext {
+    text-align: justify;
+    width: 75%; /* Adjust the width as needed */
+    margin: 20px auto; /* Center the element horizontally and add vertical margin */
+  }
+</style>
+
 {% extends "base.html" %}
 {% block title %}About{% endblock %}
 {% block page_content %}
-<h1>About Us</h1>
-<p>
-    Welcome to [Your Website Name], your trusted partner in managing screen time and enhancing productivity! 
-    We understand that in today's digital age, it's easy to lose track of time while browsing the web. 
-    That's why we've developed a cutting-edge Chrome extension dedicated to helping you take control of your 
-    online habits.
-</p>
-<p>
-    At [Your Website Name], we believe that time is your most valuable resource. 
-    Our mission is to empower individuals, students, and professionals alike to make the most of their time online. 
-    We offer a comprehensive solution that includes website tracking, real-time notifications, data visualization, 
-    and personalized recommendations – all designed to optimize your digital experiences.
-</p>
-<h1>Key Features</h1>
-<h2>Track Screen Time on Different Websites</h2>
-<p>
-    Our Chrome extension records the time you spend on each website, 
-    providing you with detailed insights into your online activities. 
-    This data serves as a foundation for understanding your browsing habits and making informed decisions.
-</p>
-<h2>Productivity Alerts</h2>
-<p>
-    We care about your productivity. 
-    Our extension will send you notifications when you spend excessive time on non-productive websites, 
-    helping you stay on track and focused on what truly matters.
-</p>
-<h2>Versatile Applications</h2>
-<p>
-    Whether you're a student striving for better study habits or 
-    a professional seeking to enhance your work efficiency, 
-    our tool caters to a wide range of users. 
-    It's suitable for both academic and corporate settings.
-</p>
-<h2>Comprehensive Data Visualization</h2>
-<p>
-    Access a user-friendly external webpage that visualizes your screen time data. 
-    Our interactive charts and graphs provide a clear overview of your online activities, 
-    making it easy to identify trends and areas for improvement.
-</p>
-<h2>Secure Data Storage</h2>
-<p>
-    We prioritize your data security. 
-    All your screen time data is securely stored in MongoDB, 
-    ensuring that your information remains confidential and accessible only to you.
-</p>
-<h2>Personalized Suggestions from ChatGPT</h2>
-<p>
-    Connect your account to ChatGPT and receive automated suggestions on how to reduce screen time
-     based on your specific browsing patterns. 
-    Our AI-powered assistant will offer tailored advice to help you achieve your digital detox goals.
-</p>
-<h2>Seamless Authentication with Google</h2>
-<p>
-    We've made it easy for you to get started. 
-    Simply sign in using your Google account through OAuth authentication to start tracking and 
-    optimizing your screen time immediately.
-</p>
-
-<h1>Our Mission</h1>
-<p>
-    We live in a world where technology is constantly evolving. 
-    It's easy to get distracted by the endless stream of notifications and updates, 
-    but it doesn't have to be this way. 
-    With [Your Website Name], you can take back control of your digital life and 
-    make the most of every moment.
-</p>
-<p>
-At [Your Website Name], we are committed to helping you regain control over your digital life. 
-We believe that by making small changes to your online behavior, 
-you can unlock more time for the things that truly matter to you. 
-Our goal is to empower you to use the internet as a tool for growth, learning, and productivity.
-    
-Join us on this journey towards a more balanced and intentional online experience. 
-Start managing your screen time today with [Your Website Name]. Let's make every moment count!
-</p>
-
-<h1>Contact Us</h1>
-<p>
-    email: __________________
-    phone: __________________
-</p>
-
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="text-center text-primary">About Us</h1>
+      <p class="subtext">
+        Welcome to <strong>[Your Website Name]</strong>, your trusted partner in managing screen time and enhancing productivity!
+        We understand that in today's digital age, it's easy to lose track of time while browsing the web.
+        That's why we've developed a cutting-edge Chrome extension dedicated to helping you take control of your
+        online habits.
+      </p>
+      <p class="subtext">
+        At <strong>[Your Website Name]</strong>, we believe that time is your most valuable resource.
+        Our mission is to empower individuals, students, and professionals alike to make the most of their time online.
+        We offer a comprehensive solution that includes website tracking, real-time notifications, data visualization,
+        and personalized recommendations – all designed to optimize your digital experiences.
+      </p>
+      <h2 class="text-center text-primary mt-5">Key Features</h2>
+      <h3 class="text-center" style="color: lightblue;">Track Screen Time on Different Websites</h3>
+      <p class="subtext">
+        Our Chrome extension records the time you spend on each website,
+        providing you with detailed insights into your online activities.
+        This data serves as a foundation for understanding your browsing habits and making informed decisions.
+      </p>
+      <h3 class="text-center" style="color: lightblue;">Productivity Alerts</h3>
+      <p class="subtext">
+        We care about your productivity.
+        Our extension will send you notifications when you spend excessive time on non-productive websites,
+        helping you stay on track and focused on what truly matters.
+      </p>
+      <h3 class="text-center" style="color: lightblue;">Versatile Applications</h3>
+      <p class="subtext">
+        Whether you're a student striving for better study habits or
+        a professional seeking to enhance your work efficiency,
+        our tool caters to a wide range of users.
+        It's suitable for both academic and corporate settings.
+      </p>
+      <h3 class="text-center" style="color: lightblue;">Comprehensive Data Visualization</h3>
+      <p class="subtext">
+        Access a user-friendly external webpage that visualizes your screen time data.
+        Our interactive charts and graphs provide a clear overview of your online activities,
+        making it easy to identify trends and areas for improvement.
+      </p>
+      <h3 class="text-center" style="color: lightblue;">Secure Data Storage</h3>
+      <p class="subtext">
+        We prioritize your data security.
+        All your screen time data is securely stored in MongoDB,
+        ensuring that your information remains confidential and accessible only to you.
+      </p>
+      <h3 class="text-center" style="color: lightblue;">Personalized Suggestions from ChatGPT</h3>
+      <p class="subtext">
+        Connect your account to ChatGPT and receive automated suggestions on how to reduce screen time
+        based on your specific browsing patterns.
+        Our AI-powered assistant will offer tailored advice to help you achieve your digital detox goals.
+      </p>
+      <h3 class="text-center" style="color: lightblue;">Seamless Authentication with Google</h3>
+      <p class="subtext">
+        We've made it easy for you to get started.
+        Simply sign in using your Google account through OAuth authentication to start tracking and
+        optimizing your screen time immediately.
+      </p>
+      <h2 class="text-center text-primary mt-5">Our Mission</h2>
+      <p class="subtext">
+        We live in a world where technology is constantly evolving.
+        It's easy to get distracted by the endless stream of notifications and updates,
+        but it doesn't have to be this way.
+        With <strong>[Your Website Name]</strong>, you can take back control of your digital life and
+        make the most of every moment.
+      </p>
+      <p class="subtext">
+        At <strong>[Your Website Name]</strong>, we are committed to helping you regain control over your digital life.
+        We believe that by making small changes to your online behavior,
+        you can unlock more time for the things that truly matter to you.
+        Our goal is to empower you to use the internet as a tool for growth, learning, and productivity.
+      </p>
+      <p class="subtext">
+        Join us on this journey towards a more balanced and intentional online experience.
+        Start managing your screen time today with <strong>[Your Website Name]</strong>. Let's make every moment count!
+      </p>
+      <h2 class="text-center text-primary mt-5">Contact Us</h2>
+      <p class="subtext">
+        email: __________________
+        <br>
+        phone: __________________
+      </p>
+    </div>
+  </div>
+</div>
 {% endblock %}
+
+
+
+  
