@@ -1,6 +1,9 @@
 function logOpenTabs() {
     // Query for all open tabs
     chrome.tabs.query({}, function (tabs) {
+        chrome.storage.sync.get(["api_key"], function (result) {
+            console.log("Value currently is " + result.api_key);
+        });
       for (const tab of tabs) {
         console.log(`URL: ${tab.url}`);
         // sendData("text_api_key", tab.url, 10);
