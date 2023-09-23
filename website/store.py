@@ -22,8 +22,8 @@ def new_storage(storageID):
     return new_json
 
 
-def store(storageID, website, amountToAdd):
-    data_collection = load()
+def store(database, storageID, website, amountToAdd):
+    data_collection = database
 
     # get the number of the month of the year
     now = datetime.datetime.now()
