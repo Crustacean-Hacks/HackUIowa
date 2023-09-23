@@ -69,7 +69,7 @@ def data_post():
         website = data["website"]
         secondsToAdd = data["seconds"]
 
-        store.store(apikey, website, secondsToAdd)
+        store.store(apikey, parse_url(website), secondsToAdd)
 
         return '{"success": "Added' + str(secondsToAdd) + " seconds to " + website + '"}'
 
