@@ -6,9 +6,10 @@ from urllib.parse import quote_plus, urlencode, urlparse
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, redirect, render_template, session, url_for, request
 from flask_cors import CORS
-import store
+import store as DataStore
 
 ENV_FILE = find_dotenv()
+DATABASE = DataStore.load()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
     
@@ -69,7 +70,9 @@ def data_post():
         website = data["website"]
         secondsToAdd = data["seconds"]
 
-        store.store(apikey, parse_url(website), secondsToAdd)
+        print("Received " + str(secondsToAdd) + " seconds to [" + website + "] for " + apikey)
+
+        DataStore.store(DATABASE,apikey, parse_url(website), secondsToAdd)
 
         return '{"success": "Added' + str(secondsToAdd) + " seconds to " + website + '"}'
 
