@@ -21,7 +21,7 @@ function logOpenTabs() {
 // Log open tabs every 10 seconds
 const intervalID = setInterval(logOpenTabs, 10000);
 
-function sendData(apikey, website, secondsToAdd) {
+function sendData(apikey, websites, secondsToAdd) {
   fetch("https://twitterbecauseitsavailablenow.tech/data_post", {
     method: "POST",
     headers: {
@@ -29,7 +29,7 @@ function sendData(apikey, website, secondsToAdd) {
     },
     body: JSON.stringify({
       apikey: apikey,
-      website: website,
+      websites: websites,
       seconds: secondsToAdd,
     }),
   })
