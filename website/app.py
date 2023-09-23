@@ -33,4 +33,6 @@ if __name__ == "__main__":
     port = os.environ.get("PORT")
     ip = os.environ.get("IP")
     debug = os.environ.get("DEBUG")
-    app.run(debug=debug, port=port, host=ip)
+    fullchain = os.environ.get("SSL_FULLCHAIN")
+    privkey = os.environ.get("SSL_PRIVKEY")
+    app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey)
