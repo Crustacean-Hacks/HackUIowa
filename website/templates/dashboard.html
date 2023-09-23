@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+{% block page_content %}
+
+<h1>Graph Visualization</h1>
+<canvas id="myChart"></canvas>
+
+<script>
+    // Access the data passed from the Flask route
+    var data = {{ data | safe }};
+
+    // Create a chart using Chart.js
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar', // Change chart type as needed (e.g., line, pie, etc.)
+        data: {
+            labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+            datasets: [{
+                label: 'Data',
+                data: data,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        }
+    });
+</script>
+{% endblock %}
