@@ -1,5 +1,3 @@
-// Pass in as arguments a hash of websites and seconds to add
-
 function sendData(apikey, website, secondsToAdd) {
   fetch("http://twitterbecauseitsavailablenow.tech/data_post", {
     method: "POST",
@@ -12,11 +10,10 @@ function sendData(apikey, website, secondsToAdd) {
       seconds: secondsToAdd,
     }),
   })
-    .then((response) => {
+    .then(async (response) => {
       if (!response.ok) {
-        return response.text().then((text) => {
-          throw new Error(`Got bad response from server: ${text}`);
-        });
+        const text = await response.text();
+        throw new Error(`Got bad response from server: ${text}`);
       }
       return response.json();
     })

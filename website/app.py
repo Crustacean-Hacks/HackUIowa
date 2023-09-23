@@ -18,11 +18,13 @@ def data_post():
         # pull the following data from body:
         data = request.json
 
+        apikey = data["apikey"]
         website = data["website"]
-        username = data["username"]
-        password = data["password"]
-        print(website, username, password)
-        return '{"success": true}'
+        secondsToAdd = data["seconds"]
+        print(f"API Key: {apikey}")
+        print(f"Website: {website}")
+        print(f"Seconds to add: {secondsToAdd}")
+        return '{"success": "Added{secondsToAdd} seconds to {website}"}'
 
 
 @app.route("/about")
