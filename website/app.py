@@ -16,9 +16,11 @@ def home():
 def data_post():
     if request.method == "POST":
         # pull the following data from body:
-        website = request.form["website"]
-        username = request.form["username"]
-        password = request.form["password"]
+        data = request.json
+
+        website = data["website"]
+        username = data["username"]
+        password = data["password"]
         print(website, username, password)
         return '{"success": true}'
 
