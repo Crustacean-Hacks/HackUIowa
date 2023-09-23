@@ -1,6 +1,7 @@
 from dotenv import load_dotenv, find_dotenv
 import os
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request
+load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 
@@ -22,8 +23,7 @@ def about():
     return render_template('about.html')
 
 if __name__ == "__main__":
-    load_dotenv(find_dotenv())
-    port = os.environ.get("port")
-    ip = os.environ.get("ip")
-    debug = os.environ.get("debug")
+    port = os.environ.get("PORT")
+    ip = os.environ.get("IP")
+    debug = os.environ.get("DEBUG")
     app.run(debug=debug, port=port, host=ip)
