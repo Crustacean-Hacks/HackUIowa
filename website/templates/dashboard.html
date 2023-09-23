@@ -1,28 +1,46 @@
 {% extends "base.html" %}
 {% block title %}About{% endblock %}
 {% block page_content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Data Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<h1>Data for a Specific Date</h1>
+<input type="date" id="dateInput" value="2023-09-23">
+<button onclick="fetchData()">Fetch Data</button>
 
-<h1>Graph Visualization</h1>
-<canvas id="myChart"></canvas>
+<canvas id="barChart" width="400" height="200"></canvas>
 
 <script>
-    // Access the data passed from the Flask route
-    var data = {{ data | safe }};
+    async function fetchData() {
+        const date = document.getElementById("dateInput").value;
+        const response = await fetch(`/data_for_date/${date}`);
+        const data = await response.json();
 
-    // Create a chart using Chart.js
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar', // Change chart type as needed (e.g., line, pie, etc.)
-        data: {
-            labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
-            datasets: [{
-                label: 'Data',
-                data: data,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        }
-    });
+        const labels = Object.keys(data);
+        const dataset = labels.map(label => {
+            // Assume we are interested in the first hour's data for demonstration
+            const firstHourData = Object.values(data[label])[0]?.[Object.keys(data[label])[0]]?.[Object.keys(data[label])[0]?.[Object.keys(data[label])[0]]]?.[Object.keys(Object.values(data[label])[0]?.[Object.keys(data[label])[0]]?.[Object.keys(data[label])[0]])[0]];
+            return firstHourData || 0;
+        });
+
+        const ctx = document.getElementById('barChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Data for ' + date,
+                    data: dataset,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            }
+        });
+    }
 </script>
+</body>
 {% endblock %}
