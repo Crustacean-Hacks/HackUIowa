@@ -67,14 +67,12 @@ def data_post():
     if request.method == "POST":
         data = request.json
         apikey = data["apikey"]
-        website = data["website"]
-        secondsToAdd = data["seconds"]
+        websites = data["websites"]
+        seconds = data["seconds"]
+    
+        DataStore.store(DATABASE, apikey, websites,seconds)
 
-        print("Received " + str(secondsToAdd) + " seconds to [" + website + "] for " + apikey)
-
-        DataStore.store(DATABASE,apikey, parse_url(website), secondsToAdd)
-
-        return '{"success": "Added' + str(secondsToAdd) + " seconds to " + website + '"}'
+        return '{"success": true}'
 
 # parse the url so it only returns the domain name. like "google.com" or "netflix.com"
 def parse_url(url):
