@@ -3,7 +3,7 @@ function logOpenTabs() {
     chrome.tabs.query({}, function (tabs) {
       for (const tab of tabs) {
         console.log(`URL: ${tab.url}`);
-        sendData("text_api_key", tab.url, 10);
+        // sendData("text_api_key", tab.url, 10);
       }
     });
   }
