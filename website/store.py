@@ -8,9 +8,8 @@ import bson
 from urllib.parse import quote_plus, urlencode, urlparse
 
 
-def load():
-    load_dotenv(find_dotenv())
-    password = os.environ.get("MONGODB_PWD")
+def load(password):
+    print(password)
     connection_string = f"mongodb+srv://i0dev:{password}@logins.qy8thq3.mongodb.net/?retryWrites=true&w=majority"
     client = MongoClient(connection_string, tlsCAFile=certifi.where())
 
@@ -48,9 +47,7 @@ def store(database, storageID, websites, amountToAdd):
         currentObjJson = new_storage(storageID)
         wasNone = True
     else:
-        currentObjJson = json.loads(
-            data_collection.find_one({"storageID": storageID}).string()
-        )
+        currentObjJson = data_collection.find_one({"storageID": storageID})
     if currentObjJson == None:
         currentObjJson = new_storage(storageID)
 
@@ -78,10 +75,10 @@ def store(database, storageID, websites, amountToAdd):
                 + amountToAdd
             )
 
-    print("Final object: " + json.dumps(currentObjJson))
+    print("Final object: " + str(currentObjJson))
 
     # replace the current object with the edited one
     if wasNone:
         data_collection.insert_one(currentObjJson)
     else:
-        data_collection.replace_one({"storageID": storageID}, (currentObjJson))
+        data_collection.replace_one({"storageID": storageID}, currentObjJson)

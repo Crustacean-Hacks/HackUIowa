@@ -11,7 +11,7 @@ ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
 
-DATABASE = DataStore.load()
+DATABASE = DataStore.load(str(os.environ.get("MONGODB_PWD")))
 
 app = Flask(__name__)
 
