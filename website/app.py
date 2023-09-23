@@ -6,6 +6,7 @@ from urllib.parse import quote_plus, urlencode, urlparse
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, redirect, render_template, session, url_for, request
 from flask_cors import CORS
+import store
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -55,10 +56,6 @@ def logout():
         )
     )
 
-#@app.route("/")
-#def home():
-#    return render_template("home.html")
-
 @app.route("/")
 def home():
     return render_template("home.html", session=session.get('user'), pretty=json.dumps(session.get('user'), indent=4))
@@ -71,6 +68,9 @@ def data_post():
         apikey = data["apikey"]
         website = data["website"]
         secondsToAdd = data["seconds"]
+
+        store.store(apikey, website, secondsToAdd)
+
         return '{"success": "Added' + str(secondsToAdd) + " seconds to " + website + '"}'
 
 # parse the url so it only returns the domain name. like "google.com" or "netflix.com"
@@ -86,10 +86,6 @@ def parse_url(url):
 @app.route("/about")
 def about():
     return render_template("about.html")
-
-#@app.route('/login')
-#def login():
-#    return render_template('login.html')
 
 if __name__ == "__main__":
     port = os.environ.get("PORT")
