@@ -2,7 +2,7 @@ function logOpenTabs() {
     // Query for all open tabs
     chrome.tabs.query({}, function (tabs) {
       for (const tab of tabs) {
-        console.log(`URL: ${tab.url}, Favicon: ${tab.favIconUrl}`);
+        console.log(`URL: ${tab.url}`);
       }
     });
   }
