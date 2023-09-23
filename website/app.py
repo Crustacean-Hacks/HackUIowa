@@ -8,9 +8,10 @@ from flask_cors import CORS
 import store as DataStore
 
 ENV_FILE = find_dotenv()
-DATABASE = DataStore.load()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
+
+DATABASE = DataStore.load()
 
 app = Flask(__name__)
 
