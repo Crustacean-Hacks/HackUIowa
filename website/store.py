@@ -5,6 +5,7 @@ from pymongo import MongoClient
 import datetime
 import json
 import bson
+from urllib.parse import quote_plus, urlencode, urlparse
 
 
 def load():
@@ -20,6 +21,17 @@ def load():
 def new_storage(storageID):
     new_json = {"storageID": storageID, "websites": {}}
     return new_json
+
+
+# parse the url so it only returns the domain name. like "google.com" or "netflix.com"
+def parse_url(url):
+    # Parse the URL
+    parsed_url = urlparse(url)
+
+    # Extract the domain (hostname), includes www. and other subdomains
+    hostname = parsed_url.hostname
+
+    return hostname.split(".")[-2] + "." + hostname.split(".")[-1]
 
 
 def store(database, storageID, websites, amountToAdd):
@@ -42,7 +54,10 @@ def store(database, storageID, websites, amountToAdd):
     if currentObjJson == None:
         currentObjJson = new_storage(storageID)
 
+    print("Current object: " + str(currentObjJson))
+
     for website in websites:
+        website = parse_url(website)
         if currentObjJson["websites"].get(website) == None:
             currentObjJson["websites"][website] = {}
 
@@ -63,8 +78,8 @@ def store(database, storageID, websites, amountToAdd):
                 + amountToAdd
             )
 
-        print("Adding " + str(amountToAdd) + " to " + website + " for " + storageID)
-        
+    print("Final object: " + str(currentObjJson))
+
     # replace the current object with the edited one
     if wasNone:
         data_collection.insert_one(currentObjJson)

@@ -2,7 +2,6 @@ from dotenv import load_dotenv, find_dotenv
 import os
 from os import environ as env
 import json
-from urllib.parse import quote_plus, urlencode, urlparse
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, redirect, render_template, session, url_for, request
 from flask_cors import CORS
@@ -12,7 +11,7 @@ ENV_FILE = find_dotenv()
 DATABASE = DataStore.load()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
-    
+
 app = Flask(__name__)
 
 app.secret_key = env.get("APP_SECRET_KEY")
@@ -27,8 +26,9 @@ oauth.register(
     client_kwargs={
         "scope": "openid profile email",
     },
-    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
+    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration',
 )
+
 
 @app.route("/login")
 def login():
@@ -36,17 +36,20 @@ def login():
         redirect_uri=url_for("callback", _external=True)
     )
 
+
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
     return redirect("/")
 
+
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(
-        "https://" + env.get("AUTH0_DOMAIN")
+        "https://"
+        + env.get("AUTH0_DOMAIN")
         + "/v2/logout?"
         + urlencode(
             {
@@ -57,9 +60,14 @@ def logout():
         )
     )
 
+
 @app.route("/")
 def home():
-    return render_template("home.html", session=session.get('user'), pretty=json.dumps(session.get('user'), indent=4))
+    return render_template(
+        "home.html",
+        session=session.get("user"),
+        pretty=json.dumps(session.get("user"), indent=4),
+    )
 
 
 @app.route("/data_post", methods=["POST"])
@@ -70,29 +78,22 @@ def data_post():
         websites = data["websites"]
         seconds = data["seconds"]
 
-        print(request.json)
-    
-        DataStore.store(DATABASE, apikey, websites,seconds)
+        print("Received:" + json.dumps(json.loads(request.json)), indent=4)
+
+        DataStore.store(DATABASE, apikey, websites, seconds)
 
         return '{"success": true}'
 
-# parse the url so it only returns the domain name. like "google.com" or "netflix.com"
-def parse_url(url):
-    # Parse the URL
-    parsed_url = urlparse(url)
-    
-    # Extract the domain (hostname), includes www. and other subdomains
-    hostname = parsed_url.hostname
-    
-    return hostname.split('.')[-2] + "." + hostname.split('.')[-1]
 
 @app.route("/about")
 def about():
     return render_template("about.html")
 
+
 @app.route("/dashboard")
 def dashboard():
     return render_template("dashboard.html")
+
 
 if __name__ == "__main__":
     port = os.environ.get("PORT")
