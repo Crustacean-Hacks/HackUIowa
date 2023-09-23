@@ -3,37 +3,31 @@ import os
 from flask import Flask, render_template, request
 from flask_cors import CORS
 
-
 load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 CORS(app)
 
-
 @app.route("/")
 def home():
     return render_template("home.html")
 
-
 @app.route("/data_post", methods=["POST"])
 def data_post():
     if request.method == "POST":
-        # pull the following data from body:
         data = request.json
-
         apikey = data["apikey"]
         website = data["website"]
         secondsToAdd = data["seconds"]
-        print(f"API Key: {apikey}")
-        print(f"Website: {website}")
-        print(f"Seconds to add: {secondsToAdd}")
-        return '{"success": "Added{secondsToAdd} seconds to {website}"}'
+        return '{"success": "Added' + secondsToAdd + " seconds to " + website + '"}'
 
+def parse_url(url):
+    # parse the url so it only returns the domain name. like google.com 
+    return "https://www.google.com"
 
 @app.route("/about")
 def about():
     return render_template("about.html")
-
 
 if __name__ == "__main__":
     port = os.environ.get("PORT")
