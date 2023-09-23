@@ -8,4 +8,4 @@ function logOpenTabs() {
   }
   
   // Log open tabs every 10 seconds
-const intervalID = setInterval(logOpenTabs, 1000);
+const intervalID = setInterval(logOpenTabs, 10000);
