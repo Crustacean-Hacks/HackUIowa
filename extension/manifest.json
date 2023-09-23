@@ -3,14 +3,20 @@
     "name": "TabTime",
     "version": "0.1",
     "description": "Track your time spent on each tab",
+    "icons": {
+        "128": "icons/icon128.png",
+        "48": "icons/icon48.png",
+        "32": "icons/icon32.png",
+        "16": "icons/icon16.png"
+    },
     "action": {
-      "default_popup": "popup.html"
+        "default_popup": "popup.html"
     },
     "background": {
         "service_worker": "background.js"
-      },
+    },
     "permissions": [
-      "tabs",
-      "storage"
+        "tabs",
+        "storage"
     ]
-  }
+}
