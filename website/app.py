@@ -11,12 +11,14 @@ def home():
 
 @app.route("/data_post", methods=["POST"])
 def data_post():
+    # pull the following data from body:
     website = request.form["website"]
     username = request.form["username"]
     password = request.form["password"]
     print(website, username, password)
-
+    return "ok"
     # Handle saving data
+    # curl -X POST -H "Content-Type: application/json" -d '{ "website": "test.com", "username": "i0dev", "password": "123" }' http://twitterbecauseitsavailablenow.tech/data_post  
 
 @app.route('/about')
 def about():
