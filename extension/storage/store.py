@@ -17,6 +17,13 @@ def load():
   data_collection = storage_db.data
 
 
+def new_storage(storageID):
+  new_json = {
+    "storageID": storageID,
+    "websites": []
+  }
+  return new_json
+
 def store(storageID, website):
 
   # get the number of the month of the year
@@ -24,6 +31,12 @@ def store(storageID, website):
   day = date.now().strftime("%d")
   year = date.now().strftime("%Y")
 
+  currentObjJson = data_collection.find_one({"storageID": storageID})
+  if currentObjJson == None:
+    currentObjJson = new_storage(storageID)
+  
+  if currentObjJson["websites"][""]
+    
 
   
 
