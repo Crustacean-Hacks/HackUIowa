@@ -7,11 +7,6 @@
       "default_popup": "popup.html"
     },
     "permissions": [
-      "activeTab",
-      "reading-time"
-    ],
-    "background": {
-        "scripts": ["scripts/background.js"],
-        "persistent": true
-      }
+      "activeTab"
+    ]
   }
