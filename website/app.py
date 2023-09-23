@@ -1,10 +1,13 @@
 from dotenv import load_dotenv, find_dotenv
 import os
 from flask import Flask, render_template, request
+from flask_cors import CORS
+
 
 load_dotenv(find_dotenv())
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/")
