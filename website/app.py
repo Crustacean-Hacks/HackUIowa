@@ -19,7 +19,7 @@ def data_post():
         apikey = data["apikey"]
         website = data["website"]
         secondsToAdd = data["seconds"]
-        return '{"success": "Added' + secondsToAdd + " seconds to " + website + '"}'
+        return '{"success": "Added' + str(secondsToAdd) + " seconds to " + website + '"}'
 
 def parse_url(url):
     # parse the url so it only returns the domain name. like google.com 
