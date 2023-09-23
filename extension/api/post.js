@@ -21,4 +21,3 @@ function sendData(apikey, website, secondsToAdd) {
     .catch((error) => console.log("Error:", error));
 }
 
-sendData("123", "https://www.google.com", 123);
