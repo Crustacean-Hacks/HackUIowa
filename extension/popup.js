@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // when enter is pressed, save the api key in the textbox
     document.getElementById('api_key').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
-        var text = document.getElementById('api_key').value;
-        chrome.storage.sync.set({ 'api_key': text }, function () {
-            console.log('api_key is set to ' + text);
-        });
-        window.close();
-    }
+            var text = document.getElementById('api_key').value;
+            chrome.storage.sync.set({ 'api_key': text }, function () {
+                console.log('api_key is set to ' + text);
+            });
+            window.close();
+        }
     });
 
     // when save button is pressed, save the api key in the textbox
@@ -21,5 +21,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         window.close();
     });
-  });
-  
+});

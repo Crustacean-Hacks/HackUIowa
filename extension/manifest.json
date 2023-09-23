@@ -4,13 +4,13 @@
     "version": "0.1",
     "description": "Track your time spent on each tab",
     "action": {
-      "default_popup": "popup.html"
+        "default_popup": "popup.html"
     },
     "background": {
         "service_worker": "background.js"
-      },
+    },
     "permissions": [
-      "tabs",
-      "storage"
+        "tabs",
+        "storage"
     ]
-  }
+}
