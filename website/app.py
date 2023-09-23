@@ -78,7 +78,7 @@ def data_post():
         websites = data["websites"]
         seconds = data["seconds"]
 
-        print("Received:" + json.dumps(request.json), indent=4)
+        print("Received:" + request.json)
 
         DataStore.store(DATABASE, apikey, websites, seconds)
 
