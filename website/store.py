@@ -78,7 +78,7 @@ def store(database, storageID, websites, amountToAdd):
                 + amountToAdd
             )
 
-    print("Final object: " + str(currentObjJson))
+    print("Final object: " + json.dumps(currentObjJson))
 
     # replace the current object with the edited one
     if wasNone:
