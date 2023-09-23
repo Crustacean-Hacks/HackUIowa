@@ -22,18 +22,15 @@ def new_storage(storageID):
     return new_json
 
 
-def store(database, storageID, website, amountToAdd):
+def store(database, storageID, websites, amountToAdd):
     data_collection = database
-
-    # get the number of the month of the year
+    wasNone = False
+    mongoObj = data_collection.find_one({"storageID": storageID})
     now = datetime.datetime.now()
     month = now.strftime("%m")
     day = now.strftime("%d")
     year = now.strftime("%Y")
     hour = now.strftime("%H")
-
-    mongoObj = data_collection.find_one({"storageID": storageID})
-    wasNone = False
     currentObjJson = None
     if mongoObj == None:
         currentObjJson = new_storage(storageID)
@@ -45,26 +42,29 @@ def store(database, storageID, website, amountToAdd):
     if currentObjJson == None:
         currentObjJson = new_storage(storageID)
 
-    if currentObjJson["websites"].get(website) == None:
-        currentObjJson["websites"][website] = {}
+    for website in websites:
+        if currentObjJson["websites"].get(website) == None:
+            currentObjJson["websites"][website] = {}
 
-    if currentObjJson["websites"][website].get(year) == None:
-        currentObjJson["websites"][website][year] = {}
+        if currentObjJson["websites"][website].get(year) == None:
+            currentObjJson["websites"][website][year] = {}
 
-    if currentObjJson["websites"][website][year].get(month) == None:
-        currentObjJson["websites"][website][year][month] = {}
+        if currentObjJson["websites"][website][year].get(month) == None:
+            currentObjJson["websites"][website][year][month] = {}
 
-    if currentObjJson["websites"][website][year][month].get(day) == None:
-        currentObjJson["websites"][website][year][month][day] = {}
+        if currentObjJson["websites"][website][year][month].get(day) == None:
+            currentObjJson["websites"][website][year][month][day] = {}
 
-    if currentObjJson["websites"][website][year][month][day].get(hour) == None:
-        currentObjJson["websites"][website][year][month][day][hour] = amountToAdd
-    else:
-        currentObjJson["websites"][website][year][month][day][hour] = (
-            currentObjJson["websites"][website][year][month][day][hour] + amountToAdd
-        )
-    
-    print("Adding " + str(amountToAdd) + " to " + website + " for " + storageID)
+        if currentObjJson["websites"][website][year][month][day].get(hour) == None:
+            currentObjJson["websites"][website][year][month][day][hour] = amountToAdd
+        else:
+            currentObjJson["websites"][website][year][month][day][hour] = (
+                currentObjJson["websites"][website][year][month][day][hour]
+                + amountToAdd
+            )
+
+        print("Adding " + str(amountToAdd) + " to " + website + " for " + storageID)
+        
     # replace the current object with the edited one
     if wasNone:
         data_collection.insert_one(currentObjJson)
