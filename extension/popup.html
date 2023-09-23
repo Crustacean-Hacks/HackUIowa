@@ -2,12 +2,45 @@
 <html>
 <head>
     <meta charset="utf-8">
-  <title>Open Tabs Logger</title>
+    <title>Open Tabs Logger</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: rgba(0, 0, 0, 0.2); /* Light black background with some transparency */
+            padding: 20px;
+            text-align: center;
+        }
+
+        #api_key {
+            appearance: none;
+            border: none;
+            outline: none;
+            border-bottom: .2em solid #E91E63;
+            background: rgba(233, 30, 99, .2);
+            border-radius: .2em .2em 0 0;
+            padding: .4em;
+            color: #E91E63;
+            margin-bottom: 10px;
+        }
+
+        #save {
+            background-color: #007bff; /* Blue button color */
+            color: #fff; /* White text color */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #save:hover {
+            background-color: #0056b3; /* Darker blue color on hover */
+        }
+    </style>
 </head>
 <body>
-<div></div>
-  <input type="text" id="api_key" placeholder="API Key"></input>
-  <button id="save">Save</button>
-  <script src="popup.js"></script>
+    <input type="text" id="api_key" placeholder="API Key">
+    <button id="save" class="btn btn-primary">Save</button>
+    <script src="popup.js"></script>
 </body>
 </html>
