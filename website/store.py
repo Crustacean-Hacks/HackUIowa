@@ -63,7 +63,8 @@ def store(storageID, website, amountToAdd):
         currentObjJson["websites"][website][year][month][day][hour] = (
             currentObjJson["websites"][website][year][month][day][hour] + amountToAdd
         )
-
+    
+    print("Adding " + str(amountToAdd) + " to " + website + " for " + storageID)
     # replace the current object with the edited one
     if wasNone:
         data_collection.insert_one(currentObjJson)
