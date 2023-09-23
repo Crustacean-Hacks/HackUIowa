@@ -1,12 +1,15 @@
 {
     "manifest_version": 3,
-    "name": "My Extension",
-    "version": "1.0",
-    "description": "My first Chrome extension",
+    "name": "TabTime",
+    "version": "0.1",
+    "description": "Track your time spent on each tab",
     "action": {
       "default_popup": "popup.html"
     },
+    "background": {
+        "service_worker": "background.js"
+      },
     "permissions": [
-      "activeTab"
+      "tabs"
     ]
   }
