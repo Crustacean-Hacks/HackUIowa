@@ -8,14 +8,14 @@ from flask import Flask, redirect, render_template, session, url_for, request
 from flask_cors import CORS
 import certifi
 from pymongo import MongoClient
+import datetime
+
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
 
 MONGO_PW = os.environ.get("MONGODB_PWD")
-
-print("Password: " + MONGO_PW)
 
 connection_string = f"mongodb+srv://i0dev:{MONGO_PW}@logins.qy8thq3.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(
