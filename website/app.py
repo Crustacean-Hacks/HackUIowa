@@ -115,10 +115,10 @@ def getapikey():
         return None
     else:
         coll = storage_db['users']
-        output = coll.find_one({"email": session.get("user").get("id_token").get("email")})
+        output = coll.find_one({"email": session.get("user").get("userinfo").get("email")})
         if output == None:
             apikey = GenerateData.generate_apikey()
-            coll.insert_one({"email": session.get("user").get("id_token").get("email"), "apikey": apikey})
+            coll.insert_one({"email": session.get("user").get("userinfo").get("email"), "apikey": apikey})
             return apikey
         else:
             return output.get("apikey")
