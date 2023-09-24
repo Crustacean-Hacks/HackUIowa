@@ -199,7 +199,8 @@ def dashboard(year=None, month=None, day=None, total=False):
                 
         return render_template(
             "dashboard.html", examplebargraph=bargraph, examplepiegraph=piegraph,
-            year=year, month=month, day=day, total=total, currentOption=currentOption
+            year=year, month=month, day=day, total=total, currentOption=currentOption,
+            session=session.get("user")
     )
 
 def get_data(apikey):
