@@ -155,6 +155,8 @@ def get_rest_data(data):
     min_times = 0
     print(data)
     for key, value in enumerate(data):
+        print('key: ', key)
+        print('value: ', value)
         min_times += value
     return min_times
 
