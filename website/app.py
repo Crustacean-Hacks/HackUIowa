@@ -104,12 +104,6 @@ def data_post():
 
         return '{"success": true}'
 
-
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-
 @app.route("/dashboard")
 def dashboard(year=None, month=None, day=None, total=False):
     if(getapikey() == None):
