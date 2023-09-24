@@ -132,6 +132,13 @@ def getapikey():
 def account():
     return render_template("account.html", session=session.get("user"), apikey=getapikey())
 
+def get_category(clean_url):
+    response = storage_db['category'].find_one({"url":clean_url})
+    if response == None:
+        return "MISC"
+    else:
+        return response.get("category")
+
 def store(storageID, websites, amountToAdd):
     wasNone = False
     mongoObj = DB_COLL.find_one({"storageID": storageID})
