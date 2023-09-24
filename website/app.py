@@ -109,9 +109,23 @@ def dashboard():
     bargraph = GenerateData.total_data_bar({}) # is just an example with dummy data
     return render_template("dashboard.html", examplebargraph=bargraph)
 
+
+def getapikey():
+    if session.get("user") == None:
+        return None
+    else:
+        coll = storage_db['users']
+        output = coll.find_one({"email": session.get("user").get("id_token").get("email")})
+        if output == None:
+            apikey = GenerateData.generate_apikey()
+            coll.insert_one({"email": session.get("user").get("id_token").get("email"), "apikey": apikey})
+            return apikey
+        else:
+            return output.get("apikey")
+
 @app.route("/account")
 def account():
-    return render_template("account.html", session=session.get("user"))
+    return render_template("account.html", session=session.get("user"), apikey=getapikey())
 
 def store(storageID, websites, amountToAdd):
     wasNone = False
