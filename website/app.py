@@ -131,7 +131,7 @@ def account():
 def store(storageID, websites, amountToAdd):
     wasNone = False
     mongoObj = DB_COLL.find_one({"storageID": storageID})
-    now = datetime.datetime.now(timezone('America/Chicago'))
+    now = datetime.datetime.now(datetime.timezone('America/Chicago'))
     month = now.strftime("%m")
     day = now.strftime("%d")
     year = now.strftime("%Y")
