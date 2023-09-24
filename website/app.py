@@ -3,7 +3,7 @@ import os
 from authlib.integrations.flask_client import OAuth
 from flask import Flask
 from flask_cors import CORS
-import store as DataStore
+
 
 
 load_dotenv(find_dotenv())
