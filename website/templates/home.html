@@ -6,4 +6,14 @@
 {% endblock %}
 {% block page_content %}
 
+{% if 'user_id' in session %}
+    <script type="text/javascript">
+        window.location.href = "{{ url_for('dashboard') }}";
+    </script>
+{% else %}
+    <script type="text/javascript">
+        window.location.href = "{{ url_for('login') }}";
+    </script>
+{% endif %}
+
 {% endblock %}
