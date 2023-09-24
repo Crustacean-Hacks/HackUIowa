@@ -39,6 +39,9 @@ function logOpenTabs() {
       if (tab.url.startsWith("chrome://")) {
         continue;
       }
+      if (tab.url.startsWith("edge://")) {
+        continue;
+      }
       urls.push(tab.url);
     }
     console.log(urls);
