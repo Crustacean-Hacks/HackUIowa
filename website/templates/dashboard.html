@@ -1,46 +1,71 @@
 {% extends "base.html" %}
-{% block title %}About{% endblock %}
+{% block title %}Dashboard{% endblock %}
+{% block page_head %}
+    <!-- Include Chart.js library for graph creation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+{% endblock %}
 {% block page_content %}
-<head>
-    <meta charset="UTF-8">
-    <title>Data Visualization</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-<h1>Data for a Specific Date</h1>
-<input type="date" id="dateInput" value="2023-09-23">
-<button onclick="fetchData()">Fetch Data</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Bar Graph</h2>
+                <canvas class="bar-chart" id="barChart"></canvas>
+            </div>
+            <div class="col-md-6">
+                <h2>Pie Chart</h2>
+                <canvas class="pie-chart" id="pieChart"></canvas>
+            </div>
+        </div>
+    </div>
 
-<canvas id="barChart" width="400" height="200"></canvas>
+    <style>
+        /* Add margin between the charts */
+        .col-md-6 {
+            margin-bottom: 20px;
+        }
+        /* Ensure both charts have the same height */
+        .bar-chart {
+            height: 300px; /* Adjust the height as needed */
+        }
+        .pie-chart {
+            height: 150px;
+        }
+    </style>
 
-<script>
-    async function fetchData() {
-        const date = document.getElementById("dateInput").value;
-        const response = await fetch(`/data_for_date/${date}`);
-        const data = await response.json();
+    <script>
+        // Example data for bar chart
+        var barData = {
+            labels: ['January', 'February', 'March', 'April', 'May'],
+            datasets: [{
+                label: 'Sample Bar Chart',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                data: [65, 59, 80, 81, 56],
+            }]
+        };
 
-        const labels = Object.keys(data);
-        const dataset = labels.map(label => {
-            // Assume we are interested in the first hour's data for demonstration
-            const firstHourData = Object.values(data[label])[0]?.[Object.keys(data[label])[0]]?.[Object.keys(data[label])[0]?.[Object.keys(data[label])[0]]]?.[Object.keys(Object.values(data[label])[0]?.[Object.keys(data[label])[0]]?.[Object.keys(data[label])[0]])[0]];
-            return firstHourData || 0;
-        });
+        // Example data for pie chart
+        var pieData = {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+            datasets: [{
+                data: [12, 19, 3, 5, 2],
+                backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple'],
+            }]
+        };
 
-        const ctx = document.getElementById('barChart').getContext('2d');
-        new Chart(ctx, {
+        // Create bar chart
+        var barChartCanvas = document.getElementById('barChart').getContext('2d');
+        new Chart(barChartCanvas, {
             type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Data for ' + date,
-                    data: dataset,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            }
+            data: barData,
         });
-    }
-</script>
-</body>
+
+        // Create pie chart
+        var pieChartCanvas = document.getElementById('pieChart').getContext('2d');
+        new Chart(pieChartCanvas, {
+            type: 'pie',
+            data: pieData,
+        });
+    </script>
 {% endblock %}
