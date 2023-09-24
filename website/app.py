@@ -216,7 +216,7 @@ def parse_url(url):
     # Extract the domain (hostname), includes www. and other subdomains
     hostname = parsed_url.hostname
 
-    return hostname.split(".")[-2] + "." + hostname.split(".")[-1]
+    return hostname
 
 
 if __name__ == "__main__":
