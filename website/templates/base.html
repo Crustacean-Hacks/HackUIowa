@@ -36,11 +36,32 @@
         .navbar-nav > li {
             margin-left: 20px;
             color: #0041a3;
-            border-radius: 50%;
             display: flex;
             align-items: center;
-            overflow: hidden;
         }
+
+        .user-profile {
+            margin-left: 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px; /* Adjust this value to set the size of the circle */
+            height: 40px; /* Adjust this value to set the size of the circle */
+            border-radius: 50%; /* Makes it a circle */
+            overflow: hidden; /* Ensures the image stays within the circle */
+        }
+
+        .user-profile img {
+            width: 100%;
+            height: auto;
+        }
+
+
+
+
+
+
 
         @media (max-width: 768px) {
             body {
@@ -79,7 +100,7 @@
                     <a class="nav-link" href="{{ url_for('login') }}">Login</a>
                     {% endif %}
                 </li>
-                <li class="nav-item">
+                <li class="user-profile">
                     {% if session and session.get('userinfo') %}
                     <img src="{{ session['userinfo']['picture'] }}"  href="{{ url_for('account') }}" alt="Profile Picture" width="30" height="30">
                     {% else %}
