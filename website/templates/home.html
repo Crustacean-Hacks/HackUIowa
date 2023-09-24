@@ -13,20 +13,55 @@
         .btn-primary {
             background-color: #017bfe;
             border-color: #017bfe;
+            font-family: "proxima-nova", sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            font-style: normal;
         }
 
         .btn-primary:hover {
             background-color: #017bfe;
             border-color: #017bfe;
+            font-family: "proxima-nova", sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            font-style: normal;
         }
 
         .btn-primary:active {
             background-color: #017bfe;
             border-color: #017bfe;
+            font-family: "proxima-nova", sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            font-style: normal;
         }
 
         .btn-primary:focus {
             box-shadow: none;
+            font-family: "proxima-nova", sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .btn-block {
+            width: 100%;
+            font-family: "proxima-nova", sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .btn-lg {
+            padding: 10px 16px;
+            font-size: 50px;
+            line-height: 1.3333333;
+            border-radius: 6px;
+            font-family: "proxima-nova", sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            font-style: normal;
         }
 
         h1 {
@@ -37,7 +72,9 @@
             color: #017bfe;
         }
 
-        .col-md-6 {
+        .subtext {
+            width: 100%;
+            margin-top: 100px;
             font-family: "proxima-nova", sans-serif;
             font-size: 20px;
             font-weight: 700;
@@ -49,25 +86,21 @@
         }
 
         .button-container {
-            width: 10000px;
+            width: 100%;
             align-items: center;
             margin-top: 20px;
             margin-bottom: 1000px;
         }
+
     </style>
     <div class="container text-center">
-        <div class="row">
-            <div class="col-md-6">
-                <img src="homepic.jpg" alt="img">
-            </div>
-            <div class="col-md-6">
-                <h1>TabTime</h1>
-                <p>With TabTime you'll never lose track of your internet usage again!</p>
-            </div>
-            <div class="button-container">
-                <a href="https://github.com/Crustacean-Hacks/HackUIowa" target="_blank"
-                   class="btn btn-primary btn-lg btn-block">Add to Chrome ↓</a>
-            </div>
+        <div class="subtext">
+            <h1>TabTime</h1>
+            <p>Never lose track of your internet usage again!</p>
+        </div>
+        <div class="button-container">
+            <a href="https://github.com/Crustacean-Hacks/HackUIowa/releases" target="_blank"
+               class="btn btn-primary btn-lg btn-block">Add to Chrome ↓</a>
         </div>
     </div>
 {% endblock %}
