@@ -7,12 +7,11 @@ if ENV_FILE:
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
+
 def categorize_website(site: str) -> str:
     chat = openai.Completion.create(
-        model = "text-ada-001",
-        messages = [
-            {"text": """Categorize this website into Ecommerce, personal, entertainment, social, productivity, finance, education, health, 
-             news and information, or MISC: """ + site, "user": "human",},
-        ]
+        model="text-curie-001",
+        prompt="Categorize this website into exactly ONE of the following categories: Ecommerce, Personal, Entertainment, Social, Productivity, Finance, Education, Health, News and Information, or Miscellaneous:"
+        "" + site + "   ... You MUST choose exactly one category from above.",
     )
-    return chat["choices"][0]["text"]
+    return chat.choices[0].text.strip()

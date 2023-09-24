@@ -8,12 +8,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h2>Top 20 Websites</h2>
-                <canvas class="bar-chart" id="barChart"></canvas>
+                <div class="graph-container rounded shadow p-4">
+                    <h2>Top 20 Websites</h2>
+                    <canvas class="bar-chart" id="barChart"></canvas>
+                </div>
             </div>
             <div class="col-md-6">
-                <h2>Pie Chart</h2>
-                <canvas class="pie-chart" id="pieChart"></canvas>
+                <div class="graph-container rounded shadow p-4">
+                    <h2>Pie Chart</h2>
+                    <canvas class="pie-chart" id="pieChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -22,39 +26,58 @@
         /* Add margin between the charts */
         .col-md-6 {
             margin-bottom: 20px;
+            margin-top: 20px;
         }
+
         /* Ensure both charts have the same height */
         .bar-chart {
             height: 300px; /* Adjust the height as needed */
+            font-family: "proxima-nova", sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            font-style: normal;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
         }
+
         .pie-chart {
             height: 150px;
+            font-family: "proxima-nova", sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            font-style: normal;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        }
+
+        /* Style for graph containers */
+        .graph-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+            border-radius: 50px;
         }
     </style>
 
     <script>
-        // Example data for bar chart (horizontal)
+        // Example data for pie chart
+        var pielabels = {{ examplepiegraph.labels | tojson | safe }};
+        var piedatasets = {{ examplepiegraph.datasets | tojson | safe }};
+
         var pieData = {
-            labels: ['January', 'February', 'March', 'April', 'May'], // Labels as categories
-            datasets: [{
-                label: 'Sample Pie Chart', // You can set a label if needed
-                backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 205, 86, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
-                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 205, 86, 1)', 'rgba(54, 162, 235, 1)', 'rgba(153, 102, 255, 1)'],
-                borderWidth: 1,
-                data: [65, 59, 80, 81, 56], // Data as corresponding values
-            }]
+            labels: pielabels, // Labels as categories
+            datasets: piedatasets,
         };
 
-
         // @ts-ignore
-        var labels = {{ examplebargraph.labels | tojson | safe }};
+        var barlabels = {{ examplebargraph.labels | tojson | safe }};
         // @ts-ignore
-        var datasets = {{ examplebargraph.datasets | tojson | safe }};
+        var bardatasets = {{ examplebargraph.datasets | tojson | safe }};
 
         // Example data for pie chart
         var barData = {
-            labels: labels,
-            datasets: datasets,
+            labels: barlabels,
+            datasets: bardatasets,
         };
 
         // Create bar chart (horizontal)
