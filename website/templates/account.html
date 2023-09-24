@@ -29,6 +29,10 @@
     .api-key-text {
       z-index: 0;
     }
+    .api-key-container {
+      display: flex;
+      align-items: center;
+    }
 </style>
 
 {% extends "base.html" %}
@@ -39,11 +43,13 @@
   <div class="text-center">
     <h1 class="text-primary">Welcome {{ session.userinfo.name }}!</h1>
   </div>
+  <div class="api-key-container">
   <div class="api-key-box">
     <pre class="api-key-text">Here is your API key: {{ apikey }}</pre>
     <div class="cover-box" id="coverBox"></div>
   </div>
   <button onclick="revealAPIKey()">Reveal API Key</button>
+</div>
 {% else %}
   <div class="text-center">
     <h1 id="profileDropDown" class="text-primary">Please Login to see account information.</h1>
