@@ -46,9 +46,7 @@ def store(database, storageID, websites, amountToAdd):
         currentObjJson = new_storage(storageID)
         wasNone = True
     else:
-        currentObjJson = json.loads(bson.json_util.dumps(mongoObj))
-    if currentObjJson == None:
-        currentObjJson = new_storage(storageID)
+        currentObjJson = mongoObj
 
     print("Current object: " + str(currentObjJson))
 
@@ -81,3 +79,11 @@ def store(database, storageID, websites, amountToAdd):
         data_collection.insert_one(currentObjJson)
     else:
         data_collection.replace_one({"storageID": storageID}, currentObjJson)
+
+
+store(
+    load("LB6T6iauqKNN8Ekq"),
+    "test",
+    ["https://www.google.com", "https://www.netflix.com"],
+    1,
+)
