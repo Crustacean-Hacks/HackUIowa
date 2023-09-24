@@ -111,11 +111,38 @@ def about():
 
 
 @app.route("/dashboard")
-def dashboard():
-    bargraph = GenerateData.total_data_bar({})  # is just an example with dummy data
-    piegraph = GenerateData.total_data_pie({})  # is just an example with dummy data
-    return render_template(
-        "dashboard.html", examplebargraph=bargraph, examplepiegraph=piegraph
+def dashboard(year=None, month=None, day=None, total=False):
+    if(getapikey() == None):
+        return redirect("/account")
+    else:
+        apikey = getapikey()
+        data = get_data(apikey)
+        if(year == None):
+            if(total): # show all-time data
+                bargraph = GenerateData.total_data_bar({})
+                piegraph = GenerateData.total_data_pie({})
+            else: # Default to today's stats
+                now = datetime.datetime.now(tz)
+                
+                formatted_now = now.strftime("%Y-%m-%d")
+                year = formatted_now.split("-")[0]
+                month = formatted_now.split("-")[1]
+                day = formatted_now.split("-")[2]
+                
+                bargraph = GenerateData.day_data_bar(data, year, month, day)
+                piegraph = GenerateData.day_data_pie(data, year, month, day)
+        else:
+            if(day == None): # Month data
+                bargraph = GenerateData.month_data_bar(data, year, month)
+                piegraph = GenerateData.month_data_pie(data, year, month)
+            else: # Day data
+                bargraph = GenerateData.day_data_bar(data, year, month, day)
+                piegraph = GenerateData.day_data_pie(data, year, month, day)
+                
+        ##bargraph = GenerateData.total_data_bar({})  # is just an example with dummy data
+        ##piegraph = GenerateData.total_data_pie({})  # is just an example with dummy data
+        return render_template(
+            "dashboard.html", examplebargraph=bargraph, examplepiegraph=piegraph
     )
 
 def get_data(apikey):
@@ -227,5 +254,5 @@ if __name__ == "__main__":
     debug = os.environ.get("DEBUG")
     fullchain = os.environ.get("SSL_FULLCHAIN")
     privkey = os.environ.get("SSL_PRIVKEY")
-    app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
-    # app.run(debug=debug, port=port, host=ip)
+    #app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
+    app.run(debug=debug, port=port, host=ip)
