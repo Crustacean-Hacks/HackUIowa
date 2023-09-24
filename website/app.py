@@ -8,6 +8,7 @@ from flask import Flask, redirect, render_template, session, url_for, request
 from flask_cors import CORS
 import certifi
 import uuid
+import pytz
 from pymongo import MongoClient
 import datetime
 from urllib.parse import urlparse, quote_plus, urlencode
@@ -16,6 +17,9 @@ import generate_data as GenerateData
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
+
+
+tz = pytz.timezone('US/Central')
 
 MONGO_PW = os.environ.get("MONGODB_PWD")
 
@@ -131,7 +135,7 @@ def account():
 def store(storageID, websites, amountToAdd):
     wasNone = False
     mongoObj = DB_COLL.find_one({"storageID": storageID})
-    now = datetime.datetime.now(datetime.timezone('America/Chicago'))
+    now = datetime.datetime.now(tz)
     month = now.strftime("%m")
     day = now.strftime("%d")
     year = now.strftime("%Y")
