@@ -76,10 +76,10 @@
                     {% endif %}
                 </li>
                 <li class="nav-item">
-                    {% if session %}
+                    {% if session && session.get('userinfo') %}
                     <img src="{{ session['userinfo']['picture'] }}"  href="{{ url_for('account') }}" alt="Profile Picture" width="30" height="30">
                     {% else %}
-                    <img src="https://cdn.discordapp.com/avatars/177197491396018176/a_a9534c930ae8a83f2ae589d8a4e1ed11"  href="{{ url_for('login') }}" alt="Profile Picture" width="30" height="30">
+                    <img src="https://cdn.discordapp.com/embed/avatars/1.png"  href="{{ url_for('login') }}" alt="Profile Picture" width="30" height="30">
                     {% endif %}
                 </li>
             </ul>
