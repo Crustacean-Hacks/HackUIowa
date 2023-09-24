@@ -7,6 +7,7 @@ from pymongo.server_api import ServerApi
 from flask import Flask, redirect, render_template, session, url_for, request
 from flask_cors import CORS
 import certifi
+import uuid
 from pymongo import MongoClient
 import datetime
 from urllib.parse import urlparse, quote_plus, urlencode
@@ -117,7 +118,7 @@ def getapikey():
         coll = storage_db['users']
         output = coll.find_one({"email": session.get("user").get("userinfo").get("email")})
         if output == None:
-            apikey = GenerateData.generate_apikey()
+            apikey = uuid.uuid4().__str__()
             coll.insert_one({"email": session.get("user").get("userinfo").get("email"), "apikey": apikey})
             return apikey
         else:

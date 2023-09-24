@@ -1,10 +1,5 @@
 from flask import Flask, render_template
 import json
-import uuid
-
-# Returns a random UUID
-def generate_apikey():
-    return uuid.uuid4().hex()
 
 def bubble_sort_top_20(input_dict):
     # Convert dictionary items to a list of tuples
