@@ -91,6 +91,8 @@ def data_post():
         websites = data["websites"]
         seconds = data["seconds"]
 
+        print("API Key: " + apikey)
+
         store(apikey, websites, seconds)
 
         return '{"success": true}'
