@@ -13,59 +13,59 @@ if ENV_FILE:
 
 app = Flask(__name__)
 
-app.secret_key = env.get("APP_SECRET_KEY")
+# app.secret_key = env.get("APP_SECRET_KEY")
 CORS(app)
 
-oauth = OAuth(app)
+# oauth = OAuth(app)
 
-oauth.register(
-    "auth0",
-    client_id=env.get("AUTH0_CLIENT_ID"),
-    client_secret=env.get("AUTH0_CLIENT_SECRET"),
-    client_kwargs={
-        "scope": "openid profile email",
-    },
-    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration',
-)
-
-
-#@app.route("/login")
-def login():
-    return oauth.auth0.authorize_redirect(
-        redirect_uri=url_for("callback", _external=True)
-    )
+# oauth.register(
+#     "auth0",
+#     client_id=env.get("AUTH0_CLIENT_ID"),
+#     client_secret=env.get("AUTH0_CLIENT_SECRET"),
+#     client_kwargs={
+#         "scope": "openid profile email",
+#     },
+#     server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration',
+# )
 
 
-#@app.route("/callback", methods=["GET", "POST"])
-def callback():
-    token = oauth.auth0.authorize_access_token()
-    session["user"] = token
-    return redirect("/")
+# #@app.route("/login")
+# def login():
+#     return oauth.auth0.authorize_redirect(
+#         redirect_uri=url_for("callback", _external=True)
+#     )
+
+
+# #@app.route("/callback", methods=["GET", "POST"])
+# def callback():
+#     token = oauth.auth0.authorize_access_token()
+#     session["user"] = token
+#     return redirect("/")
 
 
 #@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect(
-        "https://"
-        + env.get("AUTH0_DOMAIN")
-        + "/v2/logout?"
-        + urlencode(
-            {
-                "returnTo": url_for("home", _external=True),
-                "client_id": env.get("AUTH0_CLIENT_ID"),
-            },
-            quote_via=quote_plus,
-        )
-    )
+# def logout():
+#     session.clear()
+#     return redirect(
+#         "https://"
+#         + env.get("AUTH0_DOMAIN")
+#         + "/v2/logout?"
+#         + urlencode(
+#             {
+#                 "returnTo": url_for("home", _external=True),
+#                 "client_id": env.get("AUTH0_CLIENT_ID"),
+#             },
+#             quote_via=quote_plus,
+#         )
+#     )
 
 
-#@app.route("/")
+@app.route("/")
 def home():
     return render_template(
-        "home.html",
-        session=session.get("user"),
-        pretty=json.dumps(session.get("user"), indent=4),
+        "home.html"#,
+       # session=session.get("user"),
+       # pretty=json.dumps(session.get("user"), indent=4),
     )
 
 
@@ -84,12 +84,12 @@ def data_post():
         return '{"success": true}'
 
 
-#@app.route("/about")
+@app.route("/about")
 def about():
     return render_template("about.html")
 
 
-#@app.route("/dashboard")
+@app.route("/dashboard")
 def dashboard():
     return render_template("dashboard.html")
 
