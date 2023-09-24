@@ -9,6 +9,8 @@ def load():
     load_dotenv(find_dotenv())
     password = os.environ.get("MONGODB_PWD")
 
+    print("Password: " + password)
+
     connection_string = f"mongodb+srv://i0dev:{password}@logins.qy8thq3.mongodb.net/?retryWrites=true&w=majority"
     client = MongoClient(connection_string, tlsCAFile=certifi.where())
 
@@ -36,7 +38,8 @@ def store(storageID, websites, amountToAdd):
     data_collection = load()
     wasNone = False
     print("StorageID: " + storageID)
-    mongoObj = data_collection.find_any({"storageID": storageID})
+    mongoObj = data_collection.find_one({'storageID': storageID})
+    print(mongoObj)
     now = datetime.datetime.now()
     month = now.strftime("%m")
     day = now.strftime("%d")
