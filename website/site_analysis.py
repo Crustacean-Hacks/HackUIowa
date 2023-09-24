@@ -10,7 +10,7 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 def categorize_website(site: str) -> str:
     chat = openai.Completion.create(
-        model="babbage-002",
+        model="text-babbage-001",
         prompt="Categorize this website into exactly ONE of the following categories: [Ecommerce, Personal, Entertainment, Social, Productivity, Finance, Education, Health, News, Information, Miscellaneous]:"
         "" + site + "   ... You MUST choose exactly one category from above. Only respond with 1 WORD answers!",
     )
