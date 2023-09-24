@@ -8,12 +8,9 @@ from flask_cors import CORS
 import certifi
 from pymongo import MongoClient
 
-
-
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
-
 
 MONGO_PW = os.environ.get("MONGODB_PWD")
 
@@ -92,6 +89,8 @@ def data_post():
         print("Received:" + json.dumps(request.json))
 
         store(apikey, websites, seconds)
+
+        print("Stored data")
 
         return '{"success": true}'
 
