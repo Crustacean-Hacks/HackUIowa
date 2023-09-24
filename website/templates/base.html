@@ -101,11 +101,13 @@
                     {% endif %}
                 </li>
                 <li class="user-profile">
+                    <a href="{{ url_for('account') }}">
                     {% if session and session.get('userinfo') %}
-                    <img src="{{ session['userinfo']['picture'] }}"  href="{{ url_for('account') }}" alt="Profile Picture" width="30" height="30">
+                    <img src="{{ session['userinfo']['picture'] }}" alt="Profile Picture" width="30" height="30">
                     {% else %}
-                    <img src="https://cdn.discordapp.com/embed/avatars/1.png"  href="{{ url_for('login') }}" alt="Profile Picture" width="30" height="30">
+                    <img src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Profile Picture" width="30" height="30">
                     {% endif %}
+                </a>
                 </li>
             </ul>
         </div>
