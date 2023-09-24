@@ -119,8 +119,8 @@ def dashboard(year=None, month=None, day=None, total=False):
         data = get_data(apikey)
         if(year == None):
             if(total): # show all-time data
-                bargraph = GenerateData.total_data_bar({})
-                piegraph = GenerateData.total_data_pie({})
+                bargraph = GenerateData.total_data_bar(data)
+                piegraph = GenerateData.total_data_pie(data)
             else: # Default to today's stats
                 now = datetime.datetime.now(tz)
                 
@@ -254,5 +254,5 @@ if __name__ == "__main__":
     debug = os.environ.get("DEBUG")
     fullchain = os.environ.get("SSL_FULLCHAIN")
     privkey = os.environ.get("SSL_PRIVKEY")
-    #app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
-    app.run(debug=debug, port=port, host=ip)
+    app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
+    #app.run(debug=debug, port=port, host=ip)
