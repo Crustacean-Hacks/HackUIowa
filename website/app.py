@@ -18,7 +18,6 @@ if ENV_FILE:
     load_dotenv(ENV_FILE)
 
 MONGO_PW = os.environ.get("MONGODB_PWD")
-datetime.timezone.activate('America/Chicago')
 
 connection_string = f"mongodb+srv://i0dev:{MONGO_PW}@logins.qy8thq3.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(
@@ -132,7 +131,7 @@ def account():
 def store(storageID, websites, amountToAdd):
     wasNone = False
     mongoObj = DB_COLL.find_one({"storageID": storageID})
-    now = datetime.datetime.now(datetime.timezone.utc)
+    now = datetime.datetime.now(timezone('America/Chicago'))
     month = now.strftime("%m")
     day = now.strftime("%d")
     year = now.strftime("%Y")
