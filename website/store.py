@@ -10,13 +10,10 @@ def load():
     load_dotenv(find_dotenv())
     password = os.environ.get("MONGODB_PWD")
 
-    print("Password: " + password)
-
     connection_string = f"mongodb+srv://i0dev:{password}@logins.qy8thq3.mongodb.net/?retryWrites=true&w=majority"
     client = MongoClient(connection_string, tlsCAFile=certifi.where())
 
     storage_db = client.storage
-    print("Made it!")
     return storage_db.data
 
 
