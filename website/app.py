@@ -3,6 +3,7 @@ import os
 from os import environ as env
 import json
 from authlib.integrations.flask_client import OAuth
+from pymongo.server_api import ServerApi
 from flask import Flask, redirect, render_template, session, url_for, request
 from flask_cors import CORS
 import certifi
@@ -15,12 +16,19 @@ if ENV_FILE:
 MONGO_PW = os.environ.get("MONGODB_PWD")
 
 connection_string = f"mongodb+srv://i0dev:{MONGO_PW}@logins.qy8thq3.mongodb.net/?retryWrites=true&w=majority"
-client = MongoClient(connection_string, tlsCAFile=certifi.where())
+client = MongoClient(
+    connection_string, server_api=ServerApi("1")
+)  # , tlsCAFile=certifi.where())
 
-storage_db = client.storage
-DB_COLL = storage_db.data
+storage_db = client["storage"]
+DB_COLL = storage_db["data"]
 
 app = Flask(__name__)
+
+try:
+    client.admin.command("ping")
+except:
+    print("Connection failed")
 
 app.secret_key = env.get("APP_SECRET_KEY")
 CORS(app)
@@ -106,7 +114,6 @@ def dashboard():
 
 
 def store(storageID, websites, amountToAdd):
-
     wasNone = False
 
     try:
