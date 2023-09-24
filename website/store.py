@@ -5,7 +5,6 @@ from pymongo import MongoClient
 import datetime
 from urllib.parse import urlparse
 
-
 def load():
     load_dotenv(find_dotenv())
     password = os.environ.get("MONGODB_PWD")
@@ -82,8 +81,9 @@ def store(storageID, websites, amountToAdd):
         data_collection.replace_one({"storageID": storageID}, currentObjJson)
 
 
-store(
-    "test",
-    ["https://www.google.com", "https://www.netflix.com"],
-    1,
-)
+if __name__ == "__main__":
+    store(
+        "test",
+        ["https://www.google.com", "https://www.netflix.com"],
+        1,
+    )
