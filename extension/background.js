@@ -2,19 +2,21 @@ api_key = "";
 // get the api key from the storage every 1 minute
 const intervalID2 = setInterval(function () {
   chrome.storage.sync.get("api_key", function (data) {
+    if (data.api_key == undefined) {
+      console.log("api key is not set");
+      return;
+    }
     api_key = data.api_key;
     console.log(api_key);
     if (api_key == "") {
-      console.log("api key is set");
+      console.log("api key is not set");
       // open the popup to input the api key
-      if (typeof open == "undefined") {
-        var open = chrome.windows.create({
-          url: "popup.html",
-          type: "popup",
-          width: 400,
-          height: 100,
-        });
-      }
+      chrome.windows.create({
+        url: "popup.html",
+        type: "popup",
+        width: 400,
+        height: 200,
+      });
     }
   });
 }, 10000);
@@ -24,7 +26,7 @@ const intervalID = setInterval(logOpenTabs, 10000);
 
 function logOpenTabs() {
   if (api_key == "") {
-    return;
+    throw new Error("api key is not set");
   }
   // Query for all open tabs
   chrome.tabs.query({}, function (tabs) {
@@ -49,14 +51,12 @@ function logOpenTabs() {
 // when the extension is installed, pop up the page to input the api key
 chrome.runtime.onInstalled.addListener(function () {
   chrome.tabs.create({ url: "https://twitterbecauseitsavailablenow.tech/" });
-  if (typeof open == "undefined") {
-    var open = chrome.windows.create({
-      url: "popup.html",
-      type: "popup",
-      width: 400,
-      height: 100,
-    });
-  }
+  chrome.windows.create({
+    url: "popup.html",
+    type: "popup",
+    width: 400,
+    height: 200,
+  });
 });
 
 // Send data to server
