@@ -11,8 +11,6 @@ ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
 
-DATABASE = DataStore.load(str(env.get("MONGODB_PWD")))
-
 app = Flask(__name__)
 
 app.secret_key = env.get("APP_SECRET_KEY")
