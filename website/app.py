@@ -4,7 +4,7 @@ from os import environ as env
 import json
 from authlib.integrations.flask_client import OAuth
 from pymongo.server_api import ServerApi
-from flask import Flask, redirect, render_template, session, url_for, request
+from flask import Flask, redirect, render_template, session, url_for, request, jsonify
 from flask_cors import CORS
 import certifi
 import uuid
@@ -109,6 +109,59 @@ def data_post():
 def about():
     return render_template("about.html")
 
+@app.route("/update_dashboard", methods=["POST"])
+def update_dashboard():
+    data = request.get_json()
+    date = data.get("date")  # Get the date parameter from the JSON request
+    option = data.get("option")  # Get the option parameter from the JSON request
+
+    if date is None or option is None:
+        return jsonify({"error": "Invalid request data"}), 400
+
+    # Depending on the 'option' (e.g., "daily" or "monthly"), retrieve the updated data
+    # and format it as needed for your charts
+
+    # For example, you can call functions to generate updated data based on the date and option
+    # Replace these with your actual data generation functions
+    updated_bar_data = generate_updated_bar_data(date, option)
+    updated_pie_data = generate_updated_pie_data(date, option)
+
+    # You can format the data as a dictionary or JSON as per your application's requirements
+    response_data = {
+        "barData": updated_bar_data,
+        "pieData": updated_pie_data
+    }
+
+    return jsonify(response_data), 200
+
+# Replace these with your actual data generation functions based on date and option
+def generate_updated_bar_data(date, option):
+    # Implement your data generation logic here
+    # Return the updated bar chart data
+    if(option=="daily"):
+        return GenerateData.day_data_bar(get_data(getapikey()), date[0:4], date[5:7], date[8:10])
+    elif(option=="monthly"):
+        return GenerateData.month_data_bar(get_data(getapikey()), date[0:4], date[5:7])
+    elif(option=="total"):
+        return GenerateData.total_data_bar(get_data(getapikey()))
+    else:
+        return None
+    
+    return updated_bar_data
+
+def generate_updated_pie_data(date, option):
+    # Implement your data generation logic here
+    # Return the updated bar chart data
+    if(option=="daily"):
+        return GenerateData.day_data_pie(get_data(getapikey()), date[0:4], date[5:7], date[8:10])
+    elif(option=="monthly"):
+        return GenerateData.month_data_pie(get_data(getapikey()), date[0:4], date[5:7])
+    elif(option=="total"):
+        return GenerateData.total_data_pie(get_data(getapikey()))
+    else:
+        return None
+    
+    return updated_bar_data
 
 @app.route("/dashboard")
 def dashboard(year=None, month=None, day=None, total=False):
@@ -117,10 +170,14 @@ def dashboard(year=None, month=None, day=None, total=False):
     else:
         apikey = getapikey()
         data = get_data(apikey)
+        
+        currentOption = None
+        
         if(year == None):
             if(total): # show all-time data
                 bargraph = GenerateData.total_data_bar(data)
                 piegraph = GenerateData.total_data_pie(data)
+                currentOption = "total"
             else: # Default to today's stats
                 now = datetime.datetime.now(tz)
                 
@@ -134,16 +191,20 @@ def dashboard(year=None, month=None, day=None, total=False):
                 
                 bargraph = GenerateData.day_data_bar(data, year, month, day)
                 piegraph = GenerateData.day_data_pie(data, year, month, day)
+                currentOption = "daily"
         else:
             if(day == None): # Month data
                 bargraph = GenerateData.month_data_bar(data, year, month)
                 piegraph = GenerateData.month_data_pie(data, year, month)
+                currentOption = "month"
             else: # Day data
                 bargraph = GenerateData.day_data_bar(data, year, month, day)
                 piegraph = GenerateData.day_data_pie(data, year, month, day)
+                currentOption = "daily"
                 
         return render_template(
-            "dashboard.html", examplebargraph=bargraph, examplepiegraph=piegraph
+            "dashboard.html", examplebargraph=bargraph, examplepiegraph=piegraph,
+            year=year, month=month, day=day, total=total, currentOption=currentOption
     )
 
 def get_data(apikey):
