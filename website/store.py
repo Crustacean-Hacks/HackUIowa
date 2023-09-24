@@ -35,7 +35,8 @@ def parse_url(url):
 def store(storageID, websites, amountToAdd):
     data_collection = load()
     wasNone = False
-    mongoObj = data_collection.find_one({"storageID": storageID})
+    print("StorageID: " + storageID)
+    mongoObj = data_collection.find_any({"storageID": storageID})
     now = datetime.datetime.now()
     month = now.strftime("%m")
     day = now.strftime("%d")
