@@ -148,7 +148,6 @@ def account():
 
 
 def get_category(clean_url):
-    clean_url = parse_url(clean_url)
     response = storage_db["category"].find_one({"url": clean_url})
     if response == None:
         category = categorize_website(clean_url)
