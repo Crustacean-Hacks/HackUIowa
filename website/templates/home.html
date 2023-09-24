@@ -10,7 +10,7 @@
     {% if session.logged_in %}
         window.location.href = "{{ url_for('dashboard') }}"; // Redirect to the dashboard
     {% else %}
-        window.location.href = "{{ url_for('sign_in') }}"; // Redirect to the sign_in page
+        window.location.href = "{{ url_for('login') }}"; // Redirect to the sign_in page
     {% endif %}
 </script>
 {% endblock %}
