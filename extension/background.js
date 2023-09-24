@@ -15,6 +15,9 @@ const intervalID2 = setInterval(function () {
 const intervalID = setInterval(logOpenTabs, 10000);
 
 function logOpenTabs() {
+  if (api_key == "") {
+    return;
+  }
   // Query for all open tabs
   chrome.tabs.query({}, function (tabs) {
     // make a list of urls
