@@ -69,7 +69,7 @@ def home():
     )
 
 
-@app.route("/data_post", methods=["POST"])
+#@app.route("/data_post", methods=["POST"])
 def data_post():
     if request.method == "POST":
         data = request.json
