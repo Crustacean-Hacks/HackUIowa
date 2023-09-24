@@ -9,6 +9,8 @@ from flask_cors import CORS
 import certifi
 from pymongo import MongoClient
 import datetime
+from urllib.parse import urlparse
+
 
 
 ENV_FILE = find_dotenv()
