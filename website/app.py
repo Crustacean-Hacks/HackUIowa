@@ -106,11 +106,11 @@ def dashboard():
 
 
 def store(storageID, websites, amountToAdd):
-    data_collection = DB_COLL
+
     wasNone = False
 
     try:
-        mongoObj = data_collection.find_one({"storageID": storageID})
+        mongoObj = DB_COLL.find_one({"storageID": storageID})
     except Exception as e:
         print(f"An error occurred: {e}")
         return
@@ -155,9 +155,9 @@ def store(storageID, websites, amountToAdd):
 
     # replace the current object with the edited one
     if wasNone:
-        data_collection.insert_one(currentObjJson)
+        DB_COLL.insert_one(currentObjJson)
     else:
-        data_collection.replace_one({"storageID": storageID}, currentObjJson)
+        DB_COLL.replace_one({"storageID": storageID}, currentObjJson)
 
 
 def new_storage(storageID):
