@@ -11,8 +11,6 @@ from pymongo import MongoClient
 import datetime
 from urllib.parse import urlparse
 
-
-
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
@@ -21,18 +19,13 @@ MONGO_PW = os.environ.get("MONGODB_PWD")
 
 connection_string = f"mongodb+srv://i0dev:{MONGO_PW}@logins.qy8thq3.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(
-    connection_string, server_api=ServerApi("1")
-)  # , tlsCAFile=certifi.where())
+    connection_string, server_api=ServerApi("1"), tlsCAFile=certifi.where()
+)
 
 storage_db = client["storage"]
 DB_COLL = storage_db["data"]
 
 app = Flask(__name__)
-
-try:
-    client.admin.command("ping")
-except:
-    print("Connection failed")
 
 app.secret_key = env.get("APP_SECRET_KEY")
 CORS(app)
@@ -98,8 +91,6 @@ def data_post():
         websites = data["websites"]
         seconds = data["seconds"]
 
-        print("Received:" + json.dumps(request.json))
-
         store(apikey, websites, seconds)
 
         print("Stored data")
@@ -138,8 +129,6 @@ def store(storageID, websites, amountToAdd):
     else:
         currentObjJson = mongoObj
 
-    print("Current object: " + str(currentObjJson))
-
     for website in websites:
         website = parse_url(website)
         if currentObjJson["websites"].get(website) == None:
@@ -161,8 +150,6 @@ def store(storageID, websites, amountToAdd):
                 currentObjJson["websites"][website][year][month][day][hour]
                 + amountToAdd
             )
-
-    print("Final object: " + str(currentObjJson))
 
     # replace the current object with the edited one
     if wasNone:
