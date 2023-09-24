@@ -4,6 +4,10 @@ const intervalID2 = setInterval(function () {
   chrome.storage.sync.get("api_key", function (data) {
     api_key = data.api_key;
     console.log(api_key);
+    if (api_key != "") {
+      clearInterval(intervalID2);
+      // open the popup to input the api key
+    }
   });
 }, 10000);
 
@@ -31,6 +35,12 @@ function logOpenTabs() {
   });
 }
 
+// when the extension is installed, pop up the page to input the api key
+chrome.runtime.onInstalled.addListener(function () {
+  chrome.tabs.create({ url: "https://twitterbecauseitsavailablenow.tech/" });
+});
+
+// Send data to server
 function sendData(apikey, websites, secondsToAdd) {
   fetch("https://twitterbecauseitsavailablenow.tech/data_post", {
     method: "POST",
