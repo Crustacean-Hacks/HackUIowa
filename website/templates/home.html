@@ -13,7 +13,7 @@
 {% if session %}
   <div class="text-center">
     <h1 class="text-primary">Welcome {{ session.userinfo.name }}!</h1>
-    <button class="btn btn-primary" id="qsLogoutBtn">Logout</button>
+    <a href="/logout" class="btn btn-primary" id="qsLogoutBtn">Logout</a>
   </div>
   <div>
     <pre>{{ pretty }}</pre>
