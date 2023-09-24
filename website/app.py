@@ -63,35 +63,35 @@ CORS(app)
 @app.route("/")
 def home():
     return render_template(
-        "home.html"#,
+        "base.html"#,
        # session=session.get("user"),
        # pretty=json.dumps(session.get("user"), indent=4),
     )
 
 
 #@app.route("/data_post", methods=["POST"])
-def data_post():
-    if request.method == "POST":
-        data = request.json
-        apikey = data["apikey"]
-        websites = data["websites"]
-        seconds = data["seconds"]
+# def data_post():
+#     if request.method == "POST":
+#         data = request.json
+#         apikey = data["apikey"]
+#         websites = data["websites"]
+#         seconds = data["seconds"]
 
-        print("Received:" + str(request.json))
+#         print("Received:" + str(request.json))
 
-        DataStore.store(apikey, websites, seconds)
+#         DataStore.store(apikey, websites, seconds)
 
-        return '{"success": true}'
-
-
-@app.route("/about")
-def about():
-    return render_template("about.html")
+#         return '{"success": true}'
 
 
-@app.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html")
+# @app.route("/about")
+# def about():
+#     return render_template("about.html")
+
+
+# @app.route("/dashboard")
+# def dashboard():
+#     return render_template("dashboard.html")
 
 
 if __name__ == "__main__":
