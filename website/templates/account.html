@@ -1,0 +1,27 @@
+<style>
+    .subtext {
+      text-align: justify;
+      width: 75%; /* Adjust the width as needed */
+      margin: 20px auto; /* Center the element horizontally and add vertical margin */
+    }
+</style>
+
+{% extends "base.html" %}
+{% block title %}Account{% endblock %}
+{% block page_content %}
+
+{% if session %}
+  <div class="text-center">
+    <h1 class="text-primary">Welcome {{ session.userinfo.name }}!</h1>
+  </div>
+  <div class="subtext">
+    <pre>{{ pretty }}</pre>
+  </div>
+{% else %}
+  <div class="text-center">
+    <h1 id="profileDropDown" class="text-primary">Please Login to see account information.</h1>
+    <a href="/login" class="btn btn-primary" id="qsLoginBtn">Login</a>
+  </div>
+{% endif %}
+
+{% endblock %}
