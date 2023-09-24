@@ -3,12 +3,15 @@ import os
 import certifi
 from pymongo import MongoClient
 import datetime
-import json
-import bson
-from urllib.parse import quote_plus, urlencode, urlparse
+from urllib.parse import urlparse
 
 
-def load(password):
+def load():
+    load_dotenv(find_dotenv())
+    password = os.environ.get("MONGODB_PWD")
+
+    print("Password: " + password)
+
     connection_string = f"mongodb+srv://i0dev:{password}@logins.qy8thq3.mongodb.net/?retryWrites=true&w=majority"
     client = MongoClient(connection_string, tlsCAFile=certifi.where())
 
@@ -32,8 +35,8 @@ def parse_url(url):
     return hostname.split(".")[-2] + "." + hostname.split(".")[-1]
 
 
-def store(database, storageID, websites, amountToAdd):
-    data_collection = database
+def store(storageID, websites, amountToAdd):
+    data_collection = load()
     wasNone = False
     mongoObj = data_collection.find_one({"storageID": storageID})
     now = datetime.datetime.now()
@@ -82,7 +85,6 @@ def store(database, storageID, websites, amountToAdd):
 
 
 store(
-    load("LB6T6iauqKNN8Ekq"),
     "test",
     ["https://www.google.com", "https://www.netflix.com"],
     1,

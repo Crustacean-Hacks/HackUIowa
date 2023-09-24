@@ -11,8 +11,6 @@ ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
 
-DATABASE = DataStore.load(str(env.get("MONGODB_PWD")))
-
 app = Flask(__name__)
 
 app.secret_key = env.get("APP_SECRET_KEY")
@@ -81,7 +79,7 @@ def data_post():
 
         print("Received:" + str(request.json))
 
-        DataStore.store(DATABASE, apikey, websites, seconds)
+        DataStore.store(apikey, websites, seconds)
 
         return '{"success": true}'
 
