@@ -1,5 +1,5 @@
-<h1 style="text-align:center">TabTime</h1>
-<p style="text-align:center">or <a href="https://twitterbecauseitsavailablenow.tech/">twitterbecauseitsavailablenow.tech</a></p>
+<h1 align='center'>TabTime</h1>
+<p align='center'>or <a href="https://twitterbecauseitsavailablenow.tech/">twitterbecauseitsavailablenow.tech</a></p>
 
 ## What is this?
 
