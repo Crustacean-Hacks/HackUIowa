@@ -72,7 +72,13 @@
     <script>
         function unblurText() {
             // Remove the blur effect
-            document.getElementById('blurText').style.filter = 'blur(0px)';
+            var blurText = document.getElementById('blurText');
+            // if the blurText is already unblurred, blur it
+            if (blurText.style.filter === "blur(0px)") {
+                blurText.style.filter = "blur(20px)";
+            } else {
+                blurText.style.filter = "blur(0px)";
+            }
         }
     </script>
 {% endblock %}
