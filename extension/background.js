@@ -4,9 +4,15 @@ const intervalID2 = setInterval(function () {
   chrome.storage.sync.get("api_key", function (data) {
     api_key = data.api_key;
     console.log(api_key);
-    if (api_key != "") {
-      clearInterval(intervalID2);
+    if (api_key == "") {
+      console.log("api key is set");
       // open the popup to input the api key
+      chrome.windows.create({
+        url: "popup.html",
+        type: "popup",
+        width: 400,
+        height: 100,
+      });
     }
   });
 }, 10000);

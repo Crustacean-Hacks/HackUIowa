@@ -24,7 +24,6 @@
     },
     "permissions": [
         "tabs",
-        "storage",
-        "https://twitterbecauseitsavailablenow.tech/data_post"
+        "storage"
     ]
 }
