@@ -112,8 +112,8 @@ def about():
 @app.route("/dashboard")
 def dashboard():
     bargraph = GenerateData.total_data_bar({}) # is just an example with dummy data
-    return render_template("dashboard.html", examplebargraph=bargraph)
-
+    piegraph = GenerateData.total_data_pie({}) # is just an example with dummy data
+    return render_template("dashboard.html", examplebargraph=bargraph, examplepiegraph=piegraph)
 
 def getapikey():
     if session.get("user") == None:
@@ -198,5 +198,5 @@ if __name__ == "__main__":
     debug = os.environ.get("DEBUG")
     fullchain = os.environ.get("SSL_FULLCHAIN")
     privkey = os.environ.get("SSL_PRIVKEY")
-    app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
-    #app.run(debug=debug, port=port, host=ip)
+    #app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
+    app.run(debug=debug, port=port, host=ip)

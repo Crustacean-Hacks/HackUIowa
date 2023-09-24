@@ -1,7 +1,11 @@
 from flask import Flask, render_template
 import json
 
-def bubble_sort_top_20(input_dict):
+twenty_colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'grey', 'black',
+            'lightblue', 'lime', 'cyan', 'magenta', 'teal', 'gold', 'navy', 'indigo', 'silver', 'olive']
+six_colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple']
+
+def bubble_sort_top_x(input_dict, x):
     # Convert dictionary items to a list of tuples
     items = list(input_dict.items())
 
@@ -16,12 +20,52 @@ def bubble_sort_top_20(input_dict):
         # If no swaps were made in this pass, the list is already sorted
         if not swapped:
             break
-        # Stop execution and return only the top 20 items
-        if i == 19:
-            return dict(items[:20])
+        # Stop execution and return only the top x items
+        if i == (x-1):
+            return dict(items[:x])
 
-    # Return the top 20 items
-    return dict(items[:20])
+    # Return the top x items
+    return dict(items[:x]), dict(items[x:])
+
+def day_data_bar(data, year, month, day):
+    out_dict = {}
+    for site in data["websites"]:
+        if(data["websites"][site][year][month][day] != None):
+            time = 0 # time spent in seconds
+            for hour in data["websites"][site][year][month][day]:
+                time += data["websites"][site][year][month][day][hour]
+                        
+            mins = time // 60
+            out_dict[site] = mins
+    
+    # sort the dictionary by value of mins in descending order. Only need to get the top 20 so use bubble sort
+    out_dict, _ = bubble_sort_top_x(out_dict, 20)
+    
+    colors = twenty_colors
+    
+    return {"labels": list(out_dict.keys()), "datasets": [{"label": "Time spent on websites (mins)", "data": list(out_dict.values()), "backgroundColor": colors}]}
+    
+# Returns data for a bar graph of the time spent on different websites in a given month
+def month_data_bar(data, year, month):
+    out_dict = {}
+    for site in data["websites"]:
+        if(data["websites"][site][year][month] != None):
+            time = 0 # time spent in seconds
+            for day in data["websites"][site][year][month]:
+                for hour in data["websites"][site][year][month][day]:
+                    time += data["websites"][site][year][month][day][hour]
+                        
+            mins = time // 60 # convert from seconds to minutes
+            out_dict[site] = mins
+            
+    # sort the dictionary by value of mins in descending order. Only need to get the top 20 so use bubble sort
+    out_dict, _ = bubble_sort_top_x(out_dict, 20)
+    
+    # make a list of unique colors for each bar (website) in the graph
+    # Top 20 websites
+    colors = twenty_colors
+
+    return {"labels": list(out_dict.keys()), "datasets": [{"label": "Time spent on websites (mins)", "data": list(out_dict.values()), "backgroundColor": colors}]}
 
 
 # Returns json to send to javascript for the time spent on different websites all-time
@@ -39,27 +83,61 @@ def total_data_bar(data):
         mins = time // 60 # convert from seconds to minutes
         out_dict[site] = mins
         
-    # sort the dictionary by value of mins in descending order. Only need to get the top 20 so use bubble sort
-    out_dict = bubble_sort_top_20(out_dict)
+    # sort the dictionary by value of mins in descending order. Only need to get the top 5 so use bubble sort
+    out_dict, _ = bubble_sort_top_x(out_dict, 20)
     
     # make a list of unique colors for each bar (website) in the graph
     # Top 20 websites
-    colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'grey', 'black',
-          'lightblue', 'lime', 'cyan', 'magenta', 'teal', 'gold', 'navy', 'indigo', 'silver', 'olive']
+    colors = twenty_colors
 
-    """
+    return {"labels": list(out_dict.keys()), "datasets": [{"label": "Time spent on websites (mins)", "data": list(out_dict.values()), "backgroundColor": colors}]}
+
+# TODO USE CHATGPT TO MAKE A CALL TO THE API TO GET THE CATEGORY OF THE WEBSITE
+def get_category(site):
+    return "Social Media"
+
+def get_rest_data(data):
+    min_times = 0
+    for cat, val in data:
+        min_times += val
+    return min_times
+
+def total_data_pie(data):
+    data = d2
+    out_dict = {}
+    for site in data["websites"]:
+        time = 0 # time spent in seconds
+        for year in data["websites"][site]:
+            for month in data["websites"][site][year]:
+                for day in data["websites"][site][year][month]:
+                    for hour in data["websites"][site][year][month][day]:
+                        time += data["websites"][site][year][month][day][hour]
+        
+        category = get_category(site)
+        mins = time // 60 # convert from seconds to minutes
+        if(category in out_dict):
+            out_dict[category] += mins
+        else:
+            out_dict[category] = mins
+        
+    # sort the dictionary by value of mins in descending order. Only need to get the top 5 so use bubble sort
+    out_dict, rest_dict = bubble_sort_top_x(out_dict, 5)
+    rest_time = get_rest_data(rest_dict)
+    out_dict["Other Categories"] = rest_time
+    
+    # make a list of unique colors for each bar (website) in the graph
+    # 6 colors
+    colors = six_colors
+    
     datasets = [{
-        "label": "Time spent on websites (mins)",
-        "backgroundColor": 'rgba(75, 192, 192, 0.2)',
-        "borderColor": 'rgba(75, 192, 192, 1)',
+        "label": 'Website Time by Category',
+        "backgroundColor": ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 205, 86, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
+        "borderColor": ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 205, 86, 1)', 'rgba(54, 162, 235, 1)', 'rgba(153, 102, 255, 1)'],
         "borderWidth": 1,
-        "data": list(out_dict.values())
+        "data": list(out_dict.values()),
     }]
 
     return {"labels": list(out_dict.keys()), "datasets": datasets}
-    """
-
-    return {"labels": list(out_dict.keys()), "datasets": [{"label": "Time spent on websites (mins)", "data": list(out_dict.values()), "backgroundColor": colors}]}
 
 d = {
   "storageid": "7832484732981421",
