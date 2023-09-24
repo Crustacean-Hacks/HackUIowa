@@ -104,7 +104,6 @@ def data_post():
 
         return '{"success": true}'
 
-
 @app.route("/about")
 def about():
     return render_template("about.html")
@@ -184,10 +183,6 @@ def dashboard(year=None, month=None, day=None, total=False):
                 month = now.strftime("%m")
                 day = now.strftime("%d")
                 year = now.strftime("%Y")
-
-                print('year', year)
-                print('month', month)
-                print('day', day)
                 
                 bargraph = GenerateData.day_data_bar(data, year, month, day)
                 piegraph = GenerateData.day_data_pie(data, year, month, day)
@@ -319,4 +314,4 @@ if __name__ == "__main__":
     if ip != "localhost":
         app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
     else:
-        app.run(debug=debug, port=port, host=ip)
+        app.run(debug=True, port=8000, host=ip)

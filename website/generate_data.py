@@ -56,7 +56,7 @@ def day_data_bar(data, year, month, day):
     if(data == None or data["websites"] == None):
         return {"labels": [], "datasets": []}
     for site in data["websites"]:
-        if data["websites"][site][year][month][day] != None:
+        if data["websites"][site][year][month].get(day) != None:
             time = 0  # time spent in seconds
             for hour in data["websites"][site][year][month][day]:
                 time += data["websites"][site][year][month][day][hour]
@@ -87,7 +87,7 @@ def month_data_bar(data, year, month):
     if(data == None or data["websites"] == None):
         return {"labels": [], "datasets": []}
     for site in data["websites"]:
-        if data["websites"][site][year][month] != None:
+        if data["websites"][site][year].get(month) != None:
             time = 0  # time spent in seconds
             for day in data["websites"][site][year][month]:
                 for hour in data["websites"][site][year][month][day]:
@@ -169,7 +169,7 @@ def day_data_pie(data, year, month, day):
     if(data == None or data["websites"] == None):
         return {"labels": [], "datasets": []}
     for site in data["websites"]:
-        if data["websites"][site][year][month][day] != None:
+        if data["websites"][site][year][month].get(day) != None:
             time = 0  # time spent in seconds
             for hour in data["websites"][site][year][month][day]:
                 time += data["websites"][site][year][month][day][hour]
@@ -217,7 +217,7 @@ def month_data_pie(data, year, month):
     if(data == None or data["websites"] == None):
         return {"labels": [], "datasets": []}
     for site in data["websites"]:
-        if data["websites"][site][year][month] != None:
+        if data["websites"][site][year].get(month) != None:
             time = 0  # time spent in seconds
             for day in data["websites"][site][year][month]:
                 for hour in data["websites"][site][year][month][day]:
