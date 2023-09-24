@@ -93,8 +93,6 @@ def data_post():
 
         store(apikey, websites, seconds)
 
-        print("Stored data")
-
         return '{"success": true}'
 
 
