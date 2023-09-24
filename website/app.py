@@ -9,7 +9,8 @@ from flask_cors import CORS
 import certifi
 from pymongo import MongoClient
 import datetime
-from urllib.parse import urlparse
+from urllib.parse import urlparse, quote_plus, urlencode
+import generate_data as GenerateData
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -91,9 +92,9 @@ def data_post():
         websites = data["websites"]
         seconds = data["seconds"]
 
-        store(apikey, websites, seconds)
+        print("API Key: " + apikey)
 
-        print("Stored data")
+        store(apikey, websites, seconds)
 
         return '{"success": true}'
 
@@ -105,18 +106,30 @@ def about():
 
 @app.route("/dashboard")
 def dashboard():
-    return render_template("dashboard.html")
+    bargraph = GenerateData.total_data_bar({}) # is just an example with dummy data
+    return render_template("dashboard.html", examplebargraph=bargraph)
 
+
+def getapikey():
+    if session.get("user") == None:
+        return None
+    else:
+        coll = storage_db['users']
+        output = coll.find_one({"email": session.get("user").get("userinfo").get("email")})
+        if output == None:
+            apikey = GenerateData.generate_apikey()
+            coll.insert_one({"email": session.get("user").get("userinfo").get("email"), "apikey": apikey})
+            return apikey
+        else:
+            return output.get("apikey")
+
+@app.route("/account")
+def account():
+    return render_template("account.html", session=session.get("user"), apikey=getapikey())
 
 def store(storageID, websites, amountToAdd):
     wasNone = False
-
-    try:
-        mongoObj = DB_COLL.find_one({"storageID": storageID})
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return
-
+    mongoObj = DB_COLL.find_one({"storageID": storageID})
     now = datetime.datetime.now()
     month = now.strftime("%m")
     day = now.strftime("%d")
@@ -181,4 +194,4 @@ if __name__ == "__main__":
     fullchain = os.environ.get("SSL_FULLCHAIN")
     privkey = os.environ.get("SSL_PRIVKEY")
     app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
-    #     app.run(debug=debug, port=port, host=ip)
+    #app.run(debug=debug, port=port, host=ip)

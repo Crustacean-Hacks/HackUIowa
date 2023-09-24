@@ -1,9 +1,28 @@
 <style>
-    .subtext {
-      text-align: justify;
-      width: 75%; /* Adjust the width as needed */
-      margin: 20px auto; /* Center the element horizontally and add vertical margin */
-    }
+body {
+    font-family: "proxima-nova", sans-serif;
+    position: relative; /* Set the position to relative to allow stacking elements */
+    color: #343a40;
+}
+
+body::before {
+    content: "";
+    position: fixed; /* Set the position to fixed, to stay in place */
+    width: 100%;
+    height: 100%;
+    background-image: url('https://dailymedia.case.edu/wp-content/uploads/2021/01/07155645/data-visualization-feat.jpg'); /* Replace 'your-image-url.jpg' with the actual URL of your background image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(30px); /* Apply a Gaussian blur with a radius of 5px to the background image */
+    z-index: -1; /* Place the background layer behind the content */
+}
+
+.subtext {
+    text-align: justify;
+    width: 75%;
+    margin: 20px auto;
+}
+
 </style>
 
 {% extends "base.html" %}
@@ -13,7 +32,7 @@
 {% if session %}
   <div class="text-center">
     <h1 class="text-primary">Welcome {{ session.userinfo.name }}!</h1>
-    <button class="btn btn-primary" id="qsLogoutBtn">Logout</button>
+    <a href="/logout" class="btn btn-primary" id="qsLogoutBtn">Logout</a>
   </div>
   <div>
     <pre>{{ pretty }}</pre>

@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h2>Bar Graph</h2>
+                <h2>Top 20 Websites</h2>
                 <canvas class="bar-chart" id="barChart"></canvas>
             </div>
             <div class="col-md-6">
@@ -33,32 +33,35 @@
     </style>
 
     <script>
-        // Example data for bar chart
-        var barData = {
-            labels: ['January', 'February', 'March', 'April', 'May'],
+        // Example data for bar chart (horizontal)
+        var pieData = {
+            labels: ['January', 'February', 'March', 'April', 'May'], // Labels as categories
             datasets: [{
-                label: 'Sample Bar Chart',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                label: 'Sample Pie Chart', // You can set a label if needed
+                backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 205, 86, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
+                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 205, 86, 1)', 'rgba(54, 162, 235, 1)', 'rgba(153, 102, 255, 1)'],
                 borderWidth: 1,
-                data: [65, 59, 80, 81, 56],
+                data: [65, 59, 80, 81, 56], // Data as corresponding values
             }]
         };
+
+
+        // @ts-ignore
+        var labels = {{ examplebargraph.labels | tojson | safe }};
+        // @ts-ignore
+        var datasets = {{ examplebargraph.datasets | tojson | safe }};
 
         // Example data for pie chart
-        var pieData = {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
-            datasets: [{
-                data: [12, 19, 3, 5, 2],
-                backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple'],
-            }]
+        var barData = {
+            labels: labels,
+            datasets: datasets,
         };
 
-        // Create bar chart
+        // Create bar chart (horizontal)
         var barChartCanvas = document.getElementById('barChart').getContext('2d');
         new Chart(barChartCanvas, {
-            type: 'bar',
-            data: barData,
+            type: 'bar', // Set chart type to horizontalBar
+            data: barData, // Use the modified barData
         });
 
         // Create pie chart

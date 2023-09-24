@@ -1,0 +1,38 @@
+<style>
+    .subtext {
+        text-align: justify;
+        width: 75%; /* Adjust the width as needed */
+        margin: 20px auto; /* Center the element horizontally and add vertical margin */
+    }
+    .api-key-box {
+        background-color: #3498db; /* Background color */
+        color: #fff; /* Text color */
+        padding: 20px; /* Padding around the content */
+        border-radius: 5px; /* Rounded corners */
+        text-align: center; /* Center-align text */
+        font-size: 18px; /* Font size */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for a subtle lift */
+        max-width: 400px; /* Maximum width of the box */
+        margin: 0 auto; /* Center horizontally */
+    }
+</style>
+
+{% extends "base.html" %}
+{% block title %}Account{% endblock %}
+{% block page_content %}
+
+{% if session %}
+  <div class="text-center">
+    <h1 class="text-primary">Welcome {{ session.userinfo.name }}!</h1>
+  </div>
+  <div class="api-key-box">
+    <pre>Here is your API key: {{ apikey }}</pre>
+  </div>
+{% else %}
+  <div class="text-center">
+    <h1 id="profileDropDown" class="text-primary">Please Login to see account information.</h1>
+    <a href="/login" class="btn btn-primary" id="qsLoginBtn">Login</a>
+  </div>
+{% endif %}
+
+{% endblock %}
