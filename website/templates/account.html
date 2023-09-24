@@ -31,7 +31,7 @@
     <h1 class="text-primary">Welcome {{ session.userinfo.name }}!</h1>
   </div>
   <div class="api-key-box">
-    <pre id="blurText">Here is your API key: {{ apikey }}</pre>
+    <pre id="blurText">{{ apikey }}</pre>
     <button onclick="unblurText()">Show API Key</button>
   </div>
 {% else %}
