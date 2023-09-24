@@ -33,14 +33,24 @@
 
             <!-- Date display and navigation buttons -->
             <div class="button-container text-center">
-                <button id="leftButton" class="btn btn-primary">Left</button>
-                <span id="dateDisplay" class="text-primary">Select an option</span>
-                <button id="rightButton" class="btn btn-primary">Right</button>
+                <button id="leftButton" class="btn btn-primary">Previous</button>
+                <span id="dateDisplay" class="text-primary">Today</span>
+                <button id="rightButton" class="btn btn-primary">Next</button>
             </div>
         </div>
     </div>
 
     <style>
+        text-primary {
+            align-content: center;
+            color: #017bfe;
+            font-family: "proxima-nova", sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            font-style: normal;
+
+        }
+
         /* Add margin between the charts */
         .col-md-6 {
             margin-bottom: 20px;
@@ -126,7 +136,8 @@
         var total = {{ total }};
         var currentDate = new Date(year, month, day);
 
-        var currentOption = {{ currentOption }}
+        var currentOption =
+        {{ currentOption }}
 
         var nowDate = new Date(year, month, day);
         var nowYear = nowDate.getFullYear();
@@ -139,23 +150,23 @@
         }
 
         // Event listeners for option buttons
-        document.getElementById("daily").addEventListener("click", function() {
+        document.getElementById("daily").addEventListener("click", function () {
             currentOption = "daily";
             updateDateDisplay();
         });
 
-        document.getElementById("monthly").addEventListener("click", function() {
+        document.getElementById("monthly").addEventListener("click", function () {
             currentOption = "monthly";
             updateDateDisplay();
         });
 
-        document.getElementById("allTime").addEventListener("click", function() {
+        document.getElementById("allTime").addEventListener("click", function () {
             currentOption = "all-time";
             updateDateDisplay();
         });
 
         // Event listeners for left and right buttons
-        document.getElementById("leftButton").addEventListener("click", function() {
+        document.getElementById("leftButton").addEventListener("click", function () {
             if (currentOption === "daily") {
                 currentDate.setDate(currentDate.getDate() - 1);
             } else if (currentOption === "monthly") {
@@ -168,7 +179,7 @@
             updateDashboard(currentDate, currentOption);
         });
 
-        document.getElementById("rightButton").addEventListener("click", function() {
+        document.getElementById("rightButton").addEventListener("click", function () {
             if (currentOption === "daily") {
                 currentDate.setDate(currentDate.getDate() + 1);
             } else if (currentOption === "monthly") {
@@ -187,9 +198,9 @@
             $.ajax({
                 url: '/update_dashboard',
                 type: 'POST',
-                data: JSON.stringify({ date: date, option: option }),
+                data: JSON.stringify({date: date, option: option}),
                 contentType: 'application/json',
-                success: function(response) {
+                success: function (response) {
                     // Handle the response or update the charts with new data
                     // For example, if you have a bar chart
                     var updatedBarData = response.barData; // Replace with the actual data property in your response
@@ -201,7 +212,7 @@
                         data: updatedBarData,
                     });
                 },
-                error: function(error) {
+                error: function (error) {
                     console.error(error);
                 }
             });
