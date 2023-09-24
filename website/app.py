@@ -8,6 +8,7 @@ from flask import Flask, redirect, render_template, session, url_for, request
 from flask_cors import CORS
 import certifi
 import uuid
+from site_analysis import categorize_website
 import pytz
 from pymongo import MongoClient
 import datetime
@@ -19,7 +20,7 @@ if ENV_FILE:
     load_dotenv(ENV_FILE)
 
 
-tz = pytz.timezone('US/Central')
+tz = pytz.timezone("US/Central")
 
 MONGO_PW = os.environ.get("MONGODB_PWD")
 
@@ -111,33 +112,52 @@ def about():
 
 @app.route("/dashboard")
 def dashboard():
-    bargraph = GenerateData.total_data_bar({}) # is just an example with dummy data
-    piegraph = GenerateData.total_data_pie({}) # is just an example with dummy data
-    return render_template("dashboard.html", examplebargraph=bargraph, examplepiegraph=piegraph)
+    bargraph = GenerateData.total_data_bar({})  # is just an example with dummy data
+    piegraph = GenerateData.total_data_pie({})  # is just an example with dummy data
+    return render_template(
+        "dashboard.html", examplebargraph=bargraph, examplepiegraph=piegraph
+    )
+
 
 def getapikey():
     if session.get("user") == None:
         return None
     else:
-        coll = storage_db['users']
-        output = coll.find_one({"email": session.get("user").get("userinfo").get("email")})
+        coll = storage_db["users"]
+        output = coll.find_one(
+            {"email": session.get("user").get("userinfo").get("email")}
+        )
         if output == None:
             apikey = uuid.uuid4().__str__()
-            coll.insert_one({"email": session.get("user").get("userinfo").get("email"), "apikey": apikey})
+            coll.insert_one(
+                {
+                    "email": session.get("user").get("userinfo").get("email"),
+                    "apikey": apikey,
+                }
+            )
             return apikey
         else:
             return output.get("apikey")
 
+
 @app.route("/account")
 def account():
-    return render_template("account.html", session=session.get("user"), apikey=getapikey())
+    return render_template(
+        "account.html", session=session.get("user"), apikey=getapikey()
+    )
+
 
 def get_category(clean_url):
-    response = storage_db['category'].find_one({"url":clean_url})
+    clean_url = parse_url(clean_url)
+    response = storage_db["category"].find_one({"url": clean_url})
     if response == None:
-        return "MISC"
+        category = categorize_website(clean_url)
+        category = category.lower()
+        storage_db["category"].insert_one({"url": clean_url, "category": category})
+        return category
     else:
         return response.get("category")
+
 
 def store(storageID, websites, amountToAdd):
     wasNone = False
@@ -206,4 +226,4 @@ if __name__ == "__main__":
     fullchain = os.environ.get("SSL_FULLCHAIN")
     privkey = os.environ.get("SSL_PRIVKEY")
     app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
-    #app.run(debug=debug, port=port, host=ip)
+    # app.run(debug=debug, port=port, host=ip)

@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import json
 import site_analysis as sa
+import app as Application
 
 twenty_colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'grey', 'black',
             'lightblue', 'lime', 'cyan', 'magenta', 'teal', 'gold', 'navy', 'indigo', 'silver', 'olive']
@@ -95,7 +96,7 @@ def total_data_bar(data):
 
 # USE CHATGPT TO MAKE A CALL TO THE API TO GET THE CATEGORY OF THE WEBSITE
 def get_category(site):
-    return sa.categorize_website(site)
+    return Application.get_category(site)
 
 # Adds up the times of categories not in the top 5
 def get_rest_data(data):
