@@ -15,7 +15,7 @@ const intervalID2 = setInterval(function () {
         url: "popup.html",
         type: "popup",
         width: 400,
-        height: 200,
+        height: 100,
       });
     }
   });
@@ -55,7 +55,7 @@ chrome.runtime.onInstalled.addListener(function () {
     url: "popup.html",
     type: "popup",
     width: 400,
-    height: 200,
+    height: 100,
   });
 });
 
