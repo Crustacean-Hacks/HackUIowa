@@ -7,12 +7,14 @@ const intervalID2 = setInterval(function () {
     if (api_key == "") {
       console.log("api key is set");
       // open the popup to input the api key
-      chrome.windows.create({
-        url: "popup.html",
-        type: "popup",
-        width: 400,
-        height: 100,
-      });
+      if (typeof open == "undefined") {
+        var open = chrome.windows.create({
+          url: "popup.html",
+          type: "popup",
+          width: 400,
+          height: 100,
+        });
+      }
     }
   });
 }, 10000);
@@ -47,12 +49,14 @@ function logOpenTabs() {
 // when the extension is installed, pop up the page to input the api key
 chrome.runtime.onInstalled.addListener(function () {
   chrome.tabs.create({ url: "https://twitterbecauseitsavailablenow.tech/" });
-  chrome.windows.create({
-    url: "popup.html",
-    type: "popup",
-    width: 400,
-    height: 100,
-  });
+  if (typeof open == "undefined") {
+    var open = chrome.windows.create({
+      url: "popup.html",
+      type: "popup",
+      width: 400,
+      height: 100,
+    });
+  }
 });
 
 // Send data to server
