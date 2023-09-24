@@ -12,4 +12,11 @@ The TabTime website is the heart of our project. It is both the landing page for
 Also, when you first log in you are given a personal API key. This key is what the extension uses to send your data to the website (you enter the key into the text box popup). Then, after you've been using the extension for a while, you can log in to the website and view your data on the dashboard. This displays a pie chart of the percentage of time you've spent on each type of website (websites are categorized by a LLM) and you can also view a bar graph of the top 20 websites you regularly visit.
 
 ## How we built it
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/> 
 This project was built with a number of tools. The extension was built using HTML, CSS, and JavaScript. The website was built using HTML, CSS, JavaScript, and Python (Flask). The database we used was MongoDB. The extension and website communicate using a RESTful API. The extension sends data to the website using a POST request and the website serves users their data using a GET request. The extension also uses the Chart.js library to display the data on the website.
+
+## Challenges we ran into
+We learned a lot of JavaScript for this project. All of us came into this project knowing almost nothing about JavaScript or ChartJS or the Chrome Extension Library. We are all very proud of how much we learned and how much we were able to accomplish in such a short amount of time. Even though we had not used JS before we were successfully able to create a working extension, RESTful API, and Website.
+
+## Whats next for TabTime
+We want to continue work on this project. Due to time constraints we only had time to make a few graphs and metrics. Given more time, we would like to add a few more metrics to make tracking better. 
