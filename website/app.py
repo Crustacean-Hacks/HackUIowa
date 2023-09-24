@@ -124,10 +124,9 @@ def dashboard(year=None, month=None, day=None, total=False):
             else: # Default to today's stats
                 now = datetime.datetime.now(tz)
                 
-                formatted_now = now.strftime("%Y-%m-%d")
-                year = formatted_now.split("-")[0]
-                month = formatted_now.split("-")[1]
-                day = formatted_now.split("-")[2]
+                month = now.strftime("%m")
+                day = now.strftime("%d")
+                year = now.strftime("%Y")
                 
                 bargraph = GenerateData.day_data_bar(data, year, month, day)
                 piegraph = GenerateData.day_data_pie(data, year, month, day)
@@ -139,8 +138,6 @@ def dashboard(year=None, month=None, day=None, total=False):
                 bargraph = GenerateData.day_data_bar(data, year, month, day)
                 piegraph = GenerateData.day_data_pie(data, year, month, day)
                 
-        ##bargraph = GenerateData.total_data_bar({})  # is just an example with dummy data
-        ##piegraph = GenerateData.total_data_pie({})  # is just an example with dummy data
         return render_template(
             "dashboard.html", examplebargraph=bargraph, examplepiegraph=piegraph
     )
