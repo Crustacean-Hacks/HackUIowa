@@ -71,6 +71,7 @@
                 <li class="nav-item">
                     {% if session %}
                     <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    <img src={{ session.userinfo.picture }} alt="Profile Picture" width="30" height="30">
                     {% else %}
                     <a class="nav-link" href="{{ url_for('login') }}">Login</a>
                     {% endif %}
