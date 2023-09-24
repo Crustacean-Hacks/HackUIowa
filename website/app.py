@@ -110,13 +110,7 @@ def dashboard():
 
 def store(storageID, websites, amountToAdd):
     wasNone = False
-
-    try:
-        mongoObj = DB_COLL.find_one({"storageID": storageID})
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return
-
+    mongoObj = DB_COLL.find_one({"storageID": storageID})
     now = datetime.datetime.now()
     month = now.strftime("%m")
     day = now.strftime("%d")
