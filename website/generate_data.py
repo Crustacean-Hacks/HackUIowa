@@ -53,7 +53,7 @@ def bubble_sort_top_x(input_dict, x):
 
 def day_data_bar(data, year, month, day):
     out_dict = {}
-    if(data["websites"] == None):
+    if(data == None or data["websites"] == None):
         return {"labels": [], "datasets": []}
     for site in data["websites"]:
         if data["websites"][site][year][month][day] != None:
@@ -84,7 +84,7 @@ def day_data_bar(data, year, month, day):
 # Returns data for a bar graph of the time spent on different websites in a given month
 def month_data_bar(data, year, month):
     out_dict = {}
-    if(data["websites"] == None):
+    if(data == None or data["websites"] == None):
         return {"labels": [], "datasets": []}
     for site in data["websites"]:
         if data["websites"][site][year][month] != None:
@@ -118,7 +118,7 @@ def month_data_bar(data, year, month):
 # Returns json to send to javascript for the time spent on different websites all-time
 def total_data_bar(data):
     out_dict = {}
-    if(data["websites"] == None):
+    if(data == None or data["websites"] == None):
         return {"labels": [], "datasets": []}
     for site in data["websites"]:
         time = 0  # time spent in seconds
@@ -166,7 +166,7 @@ def get_rest_data(data):
 # day pie chart
 def day_data_pie(data, year, month, day):
     out_dict = {}
-    if(data["websites"] == None):
+    if(data == None or data["websites"] == None):
         return {"labels": [], "datasets": []}
     for site in data["websites"]:
         if data["websites"][site][year][month][day] != None:
@@ -214,7 +214,7 @@ def day_data_pie(data, year, month, day):
 # month pie chart
 def month_data_pie(data, year, month):
     out_dict = {}
-    if(data["websites"] == None):
+    if(data == None or data["websites"] == None):
         return {"labels": [], "datasets": []}
     for site in data["websites"]:
         if data["websites"][site][year][month] != None:
@@ -263,7 +263,7 @@ def month_data_pie(data, year, month):
 # all-time pie chart
 def total_data_pie(data):
     out_dict = {}
-    if(data["websites"] == None):
+    if(data == None or data["websites"] == None):
         return {"labels": [], "datasets": []}
     for site in data["websites"]:
         time = 0  # time spent in seconds
