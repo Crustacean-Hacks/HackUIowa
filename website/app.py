@@ -81,7 +81,7 @@ def data_post():
 
         print("Received:" + str(request.json))
 
-        DataStore.store(DATABASE, apikey, websites, seconds)
+        DataStore.store(apikey, websites, seconds)
 
         return '{"success": true}'
 
