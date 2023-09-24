@@ -16,6 +16,7 @@ def load():
     client = MongoClient(connection_string, tlsCAFile=certifi.where())
 
     storage_db = client.storage
+    print("Made it!")
     return storage_db.data
 
 
