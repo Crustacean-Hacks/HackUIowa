@@ -15,6 +15,11 @@
         max-width: 800px; /* Maximum width of the box */
         margin: 0 auto; /* Center horizontally */
     }
+    #blurText {
+    /* Apply a blur filter */
+    filter: blur(20px);
+    transition: filter 0.3s ease-in-out; /* Optional: smooth transition */
+    }
 </style>
 
 {% extends "base.html" %}
@@ -26,7 +31,8 @@
     <h1 class="text-primary">Welcome {{ session.userinfo.name }}!</h1>
   </div>
   <div class="api-key-box">
-    <pre>Here is your API key: {{ apikey }}</pre>
+    <pre id="blurText">Here is your API key: {{ apikey }}</pre>
+    <button onclick="unblurText()">Show API Key</button>
   </div>
 {% else %}
   <div class="text-center">
@@ -34,5 +40,10 @@
     <a href="/login" class="btn btn-primary" id="qsLoginBtn">Login</a>
   </div>
 {% endif %}
-
+<script>
+  function unblurText() {
+  // Remove the blur effect
+  document.getElementById('blurText').style.filter = 'blur(0px)';
+}
+</script>
 {% endblock %}
