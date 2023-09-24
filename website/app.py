@@ -254,5 +254,7 @@ if __name__ == "__main__":
     debug = os.environ.get("DEBUG")
     fullchain = os.environ.get("SSL_FULLCHAIN")
     privkey = os.environ.get("SSL_PRIVKEY")
-    app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
-    #app.run(debug=debug, port=port, host=ip)
+    if ip != "localhost":
+        app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
+    else:
+        app.run(debug=debug, port=port, host=ip)
