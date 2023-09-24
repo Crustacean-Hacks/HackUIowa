@@ -29,21 +29,21 @@ oauth.register(
 )
 
 
-@app.route("/login")
+#@app.route("/login")
 def login():
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True)
     )
 
 
-@app.route("/callback", methods=["GET", "POST"])
+#@app.route("/callback", methods=["GET", "POST"])
 def callback():
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
     return redirect("/")
 
 
-@app.route("/logout")
+#@app.route("/logout")
 def logout():
     session.clear()
     return redirect(
@@ -84,12 +84,12 @@ def data_post():
         return '{"success": true}'
 
 
-@app.route("/about")
+#@app.route("/about")
 def about():
     return render_template("about.html")
 
 
-@app.route("/dashboard")
+#@app.route("/dashboard")
 def dashboard():
     return render_template("dashboard.html")
 
