@@ -248,4 +248,4 @@ if __name__ == "__main__":
     if ip != "localhost":
         app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
     else:
-        app.run(debug=debug, port=port, host=ip)
+        app.run(debug=True, port=8000, host=ip)

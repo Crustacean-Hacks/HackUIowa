@@ -5,12 +5,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 {% endblock %}
 {% block page_content %}
-<script>
-    // Check if the user is authenticated
-    {% if session.logged_in %}
-        window.location.href = "{{ url_for('dashboard') }}"; // Redirect to the dashboard
-    {% else %}
-        window.location.href = "{{ url_for('login') }}"; // Redirect to the sign_in page
-    {% endif %}
-</script>
+
 {% endblock %}
