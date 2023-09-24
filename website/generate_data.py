@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import json
+import site_analysis as sa
 
 twenty_colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'brown', 'grey', 'black',
             'lightblue', 'lime', 'cyan', 'magenta', 'teal', 'gold', 'navy', 'indigo', 'silver', 'olive']
@@ -92,16 +93,82 @@ def total_data_bar(data):
 
     return {"labels": list(out_dict.keys()), "datasets": [{"label": "Time spent on websites (mins)", "data": list(out_dict.values()), "backgroundColor": colors}]}
 
-# TODO USE CHATGPT TO MAKE A CALL TO THE API TO GET THE CATEGORY OF THE WEBSITE
+# USE CHATGPT TO MAKE A CALL TO THE API TO GET THE CATEGORY OF THE WEBSITE
 def get_category(site):
-    return "Social Media"
+    return sa.categorize_website(site)
 
+# Adds up the times of categories not in the top 5
 def get_rest_data(data):
     min_times = 0
     for cat, val in data:
         min_times += val
     return min_times
 
+# day pie chart
+def day_data_pie(data, year, month, day):
+    out_dict = {}
+    for site in data["websites"]:
+        if(data["websites"][site][year][month][day] != None):
+            time = 0 # time spent in seconds
+            for hour in data["websites"][site][year][month][day]:
+                time += data["websites"][site][year][month][day][hour]
+            
+            category = get_category(site)
+            mins = time // 60 # convert from seconds to minutes
+            if(category in out_dict):
+                out_dict[category] += mins
+            else:
+                out_dict[category] = mins
+    
+    # sort the dictionary by value of mins in descending order. Only need to get the top 5 so use bubble sort
+    out_dict, rest_dict = bubble_sort_top_x(out_dict, 5)
+    rest_time = get_rest_data(rest_dict)    
+    out_dict["Other Categories"] = rest_time
+    
+    datasets = [{
+        "label": 'Website Time by Category',
+        "backgroundColor": ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 205, 86, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
+        "borderColor": ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 205, 86, 1)', 'rgba(54, 162, 235, 1)', 'rgba(153, 102, 255, 1)'],
+        "borderWidth": 1,
+        "data": list(out_dict.values()),
+    }]
+
+    return {"labels": list(out_dict.keys()), "datasets": datasets}
+
+# month pie chart
+def month_data_pie(data, year, month):
+    out_dict = {}
+    for site in data["websites"]:
+        if(data["websites"][site][year][month] != None):
+            time = 0 # time spent in seconds
+            for day in data["websites"][site][year][month]:
+                for hour in data["websites"][site][year][month][day]:
+                    time += data["websites"][site][year][month][day][hour]
+            
+            category = get_category(site)
+            mins = time // 60 # convert from seconds to minutes
+            if(category in out_dict):
+                out_dict[category] += mins
+            else:
+                out_dict[category] = mins
+    
+    # sort the dictionary by value of mins in descending order. Only need to get the top 5 so use bubble sort
+    out_dict, rest_dict = bubble_sort_top_x(out_dict, 5)
+    rest_time = get_rest_data(rest_dict)
+    out_dict["Other Categories"] = rest_time
+    
+    datasets = [{
+        "label": 'Website Time by Category',
+        "backgroundColor": ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 205, 86, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
+        "borderColor": ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 205, 86, 1)', 'rgba(54, 162, 235, 1)', 'rgba(153, 102, 255, 1)'],
+        "borderWidth": 1,
+        "data": list(out_dict.values()),
+    }]
+
+    return {"labels": list(out_dict.keys()), "datasets": datasets}
+    
+
+# all-time pie chart
 def total_data_pie(data):
     data = d2
     out_dict = {}
