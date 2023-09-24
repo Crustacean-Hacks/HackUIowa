@@ -20,6 +20,14 @@
     filter: blur(20px);
     transition: filter 0.3s ease-in-out; /* Optional: smooth transition */
     }
+    #unblurButton {
+    background: #3498db;
+    border: #fff;
+    border-radius: 5px;
+    text-align: center;
+    color: #fff;
+    border-radius: 15px;
+    }
 </style>
 
 {% extends "base.html" %}
@@ -32,7 +40,7 @@
   </div>
   <div class="api-key-box">
     <pre id="blurText">{{ apikey }}</pre>
-    <button onclick="unblurText()">Show API Key</button>
+    <button id="unblurButton" onclick="unblurText()">Show API Key</button>
   </div>
 {% else %}
   <div class="text-center">
