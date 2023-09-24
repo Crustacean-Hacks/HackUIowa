@@ -153,10 +153,7 @@ def get_category(site):
 # Adds up the times of categories not in the top 5
 def get_rest_data(data):
     min_times = 0
-    print(data)
-    for key, value in enumerate(data):
-        print('key: ', key)
-        print('value: ', value)
+    for value, key in enumerate(data):
         min_times += value
     return min_times
 
