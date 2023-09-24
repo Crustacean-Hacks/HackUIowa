@@ -6,6 +6,8 @@ from authlib.integrations.flask_client import OAuth
 from flask import Flask, redirect, render_template, session, url_for, request
 from flask_cors import CORS
 import certifi
+from pymongo import MongoClient
+
 
 
 ENV_FILE = find_dotenv()
