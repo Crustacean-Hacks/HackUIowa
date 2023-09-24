@@ -8,12 +8,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h2>Top 20 Websites</h2>
-                <canvas class="bar-chart" id="barChart"></canvas>
+                <div class="graph-container rounded shadow p-4">
+                    <h2>Top 20 Websites</h2>
+                    <canvas class="bar-chart" id="barChart"></canvas>
+                </div>
             </div>
             <div class="col-md-6">
-                <h2>Pie Chart</h2>
-                <canvas class="pie-chart" id="pieChart"></canvas>
+                <div class="graph-container rounded shadow p-4">
+                    <h2>Pie Chart</h2>
+                    <canvas class="pie-chart" id="pieChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -22,13 +26,24 @@
         /* Add margin between the charts */
         .col-md-6 {
             margin-bottom: 20px;
+            margin-top: 20px;
         }
+
         /* Ensure both charts have the same height */
         .bar-chart {
             height: 300px; /* Adjust the height as needed */
+            border-radius: 50px;
         }
+
         .pie-chart {
             height: 150px;
+            border-radius: 50px;
+        }
+
+        /* Style for graph containers */
+        .graph-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+            border-radius: 50px;
         }
     </style>
 
@@ -44,7 +59,6 @@
                 data: [65, 59, 80, 81, 56], // Data as corresponding values
             }]
         };
-
 
         // @ts-ignore
         var labels = {{ examplebargraph.labels | tojson | safe }};
