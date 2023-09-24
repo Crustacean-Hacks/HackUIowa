@@ -5,6 +5,7 @@ from pymongo import MongoClient
 import datetime
 from urllib.parse import urlparse
 
+
 def load():
     load_dotenv(find_dotenv())
     password = os.environ.get("MONGODB_PWD")
@@ -37,9 +38,13 @@ def parse_url(url):
 def store(storageID, websites, amountToAdd):
     data_collection = load()
     wasNone = False
-    print("StorageID: " + storageID)
-    mongoObj = data_collection.find_one({'storageID': storageID})
-    print(mongoObj)
+
+    try:
+        mongoObj = data_collection.find_one({"storageID": storageID})
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return
+
     now = datetime.datetime.now()
     month = now.strftime("%m")
     day = now.strftime("%d")
