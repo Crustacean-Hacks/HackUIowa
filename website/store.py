@@ -9,7 +9,6 @@ from urllib.parse import quote_plus, urlencode, urlparse
 
 
 def load(password):
-    print(password)
     connection_string = f"mongodb+srv://i0dev:{password}@logins.qy8thq3.mongodb.net/?retryWrites=true&w=majority"
     client = MongoClient(connection_string, tlsCAFile=certifi.where())
 
@@ -35,6 +34,7 @@ def parse_url(url):
 
 def store(database, storageID, websites, amountToAdd):
     data_collection = database
+    print(database)
     wasNone = False
     mongoObj = data_collection.find_one({"storageID": storageID})
     now = datetime.datetime.now()
