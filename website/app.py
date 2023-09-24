@@ -118,6 +118,9 @@ def dashboard():
         "dashboard.html", examplebargraph=bargraph, examplepiegraph=piegraph
     )
 
+def get_data(apikey):
+    return DB_COLL.find_one({"storageID": apikey})
+
 
 def getapikey():
     if session.get("user") == None:
