@@ -109,6 +109,9 @@ def dashboard():
     bargraph = GenerateData.total_data_bar({}) # is just an example with dummy data
     return render_template("dashboard.html", examplebargraph=bargraph)
 
+@app.route("/account")
+def account():
+    return render_template("account.html", session=session.get("user"))
 
 def store(storageID, websites, amountToAdd):
     wasNone = False
