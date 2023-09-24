@@ -34,7 +34,6 @@ def parse_url(url):
 
 def store(database, storageID, websites, amountToAdd):
     data_collection = database
-    print(database)
     wasNone = False
     mongoObj = data_collection.find_one({"storageID": storageID})
     now = datetime.datetime.now()
@@ -47,7 +46,7 @@ def store(database, storageID, websites, amountToAdd):
         currentObjJson = new_storage(storageID)
         wasNone = True
     else:
-        currentObjJson = data_collection.find_one({"storageID": storageID})
+        currentObjJson = json.loads(bson.json_util.dumps(mongoObj))
     if currentObjJson == None:
         currentObjJson = new_storage(storageID)
 
