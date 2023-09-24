@@ -10,6 +10,7 @@ import certifi
 from pymongo import MongoClient
 import datetime
 from urllib.parse import urlparse
+import generate_data as GenerateData
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -105,7 +106,8 @@ def about():
 
 @app.route("/dashboard")
 def dashboard():
-    return render_template("dashboard.html")
+    bargraph = GenerateData.total_data_bar({}) # is just an example with dummy data
+    return render_template("dashboard.html", examplebargraph=bargraph)
 
 
 def store(storageID, websites, amountToAdd):
@@ -175,4 +177,4 @@ if __name__ == "__main__":
     fullchain = os.environ.get("SSL_FULLCHAIN")
     privkey = os.environ.get("SSL_PRIVKEY")
     app.run(debug=debug, port=port, host=ip, ssl_context=(fullchain, privkey))
-    # app.run(debug=debug, port=port, host=ip)
+    #app.run(debug=debug, port=port, host=ip)
