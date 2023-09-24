@@ -127,6 +127,10 @@ def dashboard(year=None, month=None, day=None, total=False):
                 month = now.strftime("%m")
                 day = now.strftime("%d")
                 year = now.strftime("%Y")
+
+                print('year', year)
+                print('month', month)
+                print('day', day)
                 
                 bargraph = GenerateData.day_data_bar(data, year, month, day)
                 piegraph = GenerateData.day_data_pie(data, year, month, day)
