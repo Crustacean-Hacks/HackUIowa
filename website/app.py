@@ -1,15 +1,12 @@
 from dotenv import load_dotenv, find_dotenv
 import os
-from os import environ as env
-import json
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, redirect, render_template, session, url_for, request
+from flask import Flask
 from flask_cors import CORS
 import store as DataStore
 
-ENV_FILE = find_dotenv()
-if ENV_FILE:
-    load_dotenv(ENV_FILE)
+
+load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 
@@ -62,11 +59,12 @@ CORS(app)
 
 @app.route("/")
 def home():
-    return render_template(
-        "base.html"#,
-       # session=session.get("user"),
-       # pretty=json.dumps(session.get("user"), indent=4),
-    )
+    return "<h1>Wats up bro<h1>"
+    # return render_template(
+    #     "base.html"#,
+    #    # session=session.get("user"),
+    #    # pretty=json.dumps(session.get("user"), indent=4),
+    # )
 
 
 #@app.route("/data_post", methods=["POST"])
